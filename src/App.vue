@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+    <topbar/>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Topbar from "@/components/Topbar.vue";
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Topbar
+  }
 };
 </script>
 
@@ -18,7 +23,6 @@ export default {
   text-align: center;
   color: #eeeeee;
   background-color: #333333;
-  padding-top: 30px;
   height: 100vh;
 }
 </style>
