@@ -12,13 +12,25 @@
         </ul>
         <p class="display-1 mt-4">To get started, choose a rating system below:</p>
         <p class="headline text-xs-left">
-          <v-btn color="red" class="white--text font-weight-bold" :to="'/newpage'">LIKE / DISLIKE</v-btn>Simply like or dislike each pokemon.
+          <v-btn
+            color="red"
+            class="white--text font-weight-bold mode-btn"
+            :to="'/newpage'"
+          >LIKE / DISLIKE</v-btn>Simply like or dislike each pokemon.
         </p>
         <p class="headline text-xs-left">
-          <v-btn color="green" class="white--text font-weight-bold" :to="'/newpage'">INDIFFERECE</v-btn>Allow indifference and semi-like ratings.
+          <v-btn
+            color="green"
+            class="white--text font-weight-bold mode-btn"
+            :to="'/newpage'"
+          >INDIFFERECE</v-btn>Allow indifference and semi-like ratings.
         </p>
         <p class="headline text-xs-left">
-          <v-btn color="blue" class="white--text font-weight-bold" :to="'/newpage'">TEN-SCALE</v-btn>Rate each pokemon on a scale from 1 to 10.
+          <v-btn
+            color="blue"
+            class="white--text font-weight-bold mode-btn"
+            :to="'/newpage'"
+          >TEN-SCALE</v-btn>Rate each pokemon on a scale from 1 to 10.
         </p>
       </v-flex>
     </v-layout>
@@ -32,4 +44,7 @@ export default {
 </script>
 
 <style scoped>
+.mode-btn {
+  width: 120px;
+}
 </style>
