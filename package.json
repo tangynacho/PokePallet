@@ -11,6 +11,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "animate.css": "^3.7.2",
+    "uninstall": "0.0.0",
+    "v-animate-css": "0.0.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuetify": "^1.5.14"

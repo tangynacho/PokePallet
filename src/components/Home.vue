@@ -2,6 +2,7 @@
   <v-container fluid>
     <v-layout justify-center>
       <v-flex xs6>
+        
         <p class="display-2">Welcome to PokePallet!</p>
         <ul class="headline text-xs-left">
           <li>You'll be presented with each and every pokemon in existence, one at a time.</li>
@@ -10,7 +11,8 @@
           <li>If you don't have time to rate every pokemon in one sitting, you can save your progress and finish later.</li>
           <li>At the end, you'll be able to download your very own PokePallet with all your stats to share and compare with friends!</li>
         </ul>
-        <p class="display-1 mt-4">To get started, choose a rating system below:</p>
+        <v-card class="mt-4" v-animate-css="'fadeInUp'">
+        <p class="display-1 pt-1">To get started, choose a rating system below:</p>
         <p class="headline text-xs-left">
           <v-btn
             color="red"
@@ -32,6 +34,7 @@
             :to="'/newpage'"
           >TEN-SCALE</v-btn>Rate each pokemon on a scale from 1 to 10.
         </p>
+        </v-card>
       </v-flex>
     </v-layout>
   </v-container>

@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import VAnimateCss from 'v-animate-css'
 
 import 'vuetify/dist/vuetify.min.css'
 import '@/assets/global.css'
@@ -12,6 +13,7 @@ import '@mdi/font/css/materialdesignicons.css'
 Vue.use(Vuetify, {
   iconfont: 'mdi'
 })
+Vue.use(VAnimateCss)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
