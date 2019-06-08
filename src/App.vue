@@ -6,13 +6,13 @@
 </template>
 
 <script>
-import Topbar from "@/components/Topbar.vue";
+import Topbar from '@/components/Topbar.vue'
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Topbar
   }
-};
+}
 </script>
 
 <style>

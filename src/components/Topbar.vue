@@ -1,20 +1,17 @@
 <template>
-  <div class="colored pt-3 pb-1">
+  <div class="colored">
     <p class="title text-xs-left ml-4">
-      <v-icon color="white">mdi-floppy</v-icon>Save
+      <v-btn flat color="white">
+        <v-icon color="white">mdi-floppy</v-icon>SAVE YOUR PROGRESS
+      </v-btn>
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Topbar",
-  data() {
-    return {
-      var: "val"
-    };
-  }
-};
+  name: 'Topbar'
+}
 </script>
 
 <style scoped>

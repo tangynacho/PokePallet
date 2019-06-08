@@ -7,13 +7,8 @@
 
 <script>
 export default {
-  name: "NewPage",
-  data() {
-    return {
-      var: "val"
-    };
-  }
-};
+  name: 'NewPage'
+}
 </script>
 
 <style scoped>
