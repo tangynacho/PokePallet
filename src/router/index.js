@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import New from '@/components/templates/NewPage'
+import Ratings from '@/components/Ratings'
 
 Vue.use(Router)
 
@@ -16,6 +17,11 @@ export default new Router({
       path: '/newpage',
       name: 'NewPage',
       component: New
+    },
+    {
+      path: '/ratings',
+      name: 'Ratings',
+      component: Ratings
     }
   ]
 })
