@@ -1,4 +1,4 @@
-<template>
+<template class="container">
   <div id="app">
     <topbar/>
     <router-view/>
@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style>
+.container {
+  min-height: 100vh;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,6 +26,6 @@ export default {
   text-align: center;
   color: #eeeeee;
   background-color: #333333;
-  height: 100vh;
+  height: 100%;
 }
 </style>
