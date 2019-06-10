@@ -64,7 +64,15 @@ export default {
                 return '10'
             }
         }
+    },
+    beforeRouteLeave (to, from , next) {
+    const answer = window.confirm('If leave this page and you have not saved your PokePallet, you cannot get it back. Are you sure you want to leave?')
+    if (answer) {
+      next()
+    } else {
+      next(false)
     }
+  }
 }
 </script>
 

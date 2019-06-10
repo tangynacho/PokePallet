@@ -6,10 +6,31 @@
             <v-img :src="require(`@/assets/images/${current.name}.png`)" :max-width="w/4" class="center"/>
         </v-card>
         <p class="display-1 mt-3" v-animate-css="'fadeInDown'">#{{currentID}} {{current.name}}</p>
-        <v-layout justify-center>
-          <v-btn color="green" class="white--text" @click="next(1)">LIKE</v-btn>
+        <div v-animate-css="'fadeInUp'">
+        <v-layout v-if="mode === 'like'" justify-center>
+          <v-btn color="red" class="white--text" @click="next(3)">DISLIKE</v-btn>
+          <v-btn color="green" class="white--text" @click="next(7)">LIKE</v-btn>
         </v-layout>
-        <router-link v-bind:to="'/'">Home</router-link>
+        <v-layout v-if="mode === 'spec'" justify-center>
+          <v-btn color="red" class="white--text" @click="next(1)">HATE</v-btn>
+          <v-btn color="purple" class="white--text" @click="next(3)">DISLIKE</v-btn>
+          <v-btn color="blue" class="white--text" @click="next(5)">NEUTRAL</v-btn>
+          <v-btn color="teal" class="white--text" @click="next(7)">LIKE</v-btn>
+          <v-btn color="green" class="white--text" @click="next(9)">LOVE</v-btn>
+        </v-layout>
+        <v-layout v-if="mode === 'tens'" justify-center>
+          <v-btn icon color="red" class="white--text" @click="next(1)">1</v-btn>
+          <v-btn icon color="pink" class="white--text" @click="next(2)">2</v-btn>
+          <v-btn icon color="purple" class="white--text" @click="next(3)">3</v-btn>
+          <v-btn icon color="deep-purple" class="white--text" @click="next(4)">4</v-btn>
+          <v-btn icon color="indigo" class="white--text" @click="next(5)">5</v-btn>
+          <v-btn icon color="blue" class="white--text" @click="next(6)">6</v-btn>
+          <v-btn icon color="cyan" class="white--text" @click="next(7)">7</v-btn>
+          <v-btn icon color="teal" class="white--text" @click="next(8)">8</v-btn>
+          <v-btn icon color="green darken-2" class="white--text" @click="next(9)">9</v-btn>
+          <v-btn icon color="green" class="white--text" @click="next(10)">10</v-btn>
+        </v-layout>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -60,6 +81,14 @@ export default {
       } else {
         this.$router.push({name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon }})
       }
+    }
+  },
+  beforeRouteLeave (to, from , next) {
+    const answer = window.confirm('If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?')
+    if (answer) {
+      next()
+    } else {
+      next(false)
     }
   }
 }
