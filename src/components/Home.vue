@@ -32,7 +32,7 @@
             <v-btn
               color="red"
               class="white--text font-weight-bold mode-btn"
-              @click="setmode('lik')"
+              @click="setmode('like')"
               >LIKE / DISLIKE</v-btn
             >Simply like or dislike each pokemon.
           </p>
@@ -40,15 +40,15 @@
             <v-btn
               color="green"
               class="white--text font-weight-bold mode-btn"
-              @click="setmode('ind')"
-              >INDIFFERECE</v-btn
-            >Allow indifference and semi-like ratings.
+              @click="setmode('spec')"
+              >SPECTRUM</v-btn
+            >Choose a rating for each pokemon on a spectrum from love to hate.
           </p>
           <p :class="`${liltext} text-xs-left`">
             <v-btn
               color="blue"
               class="white--text font-weight-bold mode-btn"
-              @click="setmode('ten')"
+              @click="setmode('tens')"
               >TEN-SCALE</v-btn
             >Rate each pokemon on a scale from 1 to 10.
           </p>
@@ -65,7 +65,9 @@ export default {
   data () {
     return {
       h: window.innerHeight,
-      w: window.innerWidth
+      w: window.innerWidth,
+      pokemon: undefined,
+      mode: undefined
     }
   },
   computed: {

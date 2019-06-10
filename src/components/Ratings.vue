@@ -2,11 +2,13 @@
   <v-container fluid>
     <v-layout justify-center>
       <v-flex xs6>
-        <v-card>
+        <v-card  v-animate-css="'fadeInDown'">
             <v-img :src="require(`@/assets/images/${current.name}.png`)" :max-width="w/4" class="center"/>
         </v-card>
-        <p class="display-1 mt-3">#{{currentID}} {{current.name}}</p>
-        <v-btn @click="next"/>
+        <p class="display-1 mt-3" v-animate-css="'fadeInDown'">#{{currentID}} {{current.name}}</p>
+        <v-layout justify-center>
+          <v-btn color="green" class="white--text" @click="next(1)">LIKE</v-btn>
+        </v-layout>
         <router-link v-bind:to="'/'">Home</router-link>
       </v-flex>
     </v-layout>
@@ -51,8 +53,13 @@ export default {
     }
   },
   methods: {
-    next () {
-      this.i++
+    next (r) {
+      this.current.rating = r
+      if ((this.i + 1) < Object.keys(this.pokemon).length) {
+        this.i++
+      } else {
+        this.$router.push({name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon }})
+      }
     }
   }
 }
