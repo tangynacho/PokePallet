@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <v-layout justify-center>
-      <v-flex xs6>
+      <v-flex v-if="waited" xs6>
         <v-card  v-animate-css="'fadeInDown'">
-            <v-img :src="require(`@/assets/images/${current.name}.png`)" :max-width="w/4" class="center"/>
+          <v-img :src="require(`@/assets/images/${current.name}.png`)" :max-width="w/4" class="center"/>
         </v-card>
         <p class="display-1 mt-3" v-animate-css="'fadeInDown'">#{{currentID}} {{current.name}}</p>
         <div v-animate-css="'fadeInUp'">
@@ -43,10 +43,11 @@ export default {
   name: 'Ratings',
   data () {
     return {
-      mode: this.$route.params.mode,
+      mode: (this.$route.params.mode) ? this.$route.params.mode : 'like',
       i: 0,
       h: window.innerHeight,
       w: window.innerWidth,
+      waited: false,
       pokemon: {
         '001': mon('Bulbasaur', ['grass', 'poison'], 1, 1, 3, ['002', '003', '003m'], 'green', ['monster', 'grass'], false, false, true, [false, false, false], false, false, false, false, 0),
         '002': mon('Ivysaur', ['grass', 'poison'], 1, 2, 3, ['001', '003', '003m'], 'green', ['monster', 'grass'], false, false, true, [false, false, false], false, false, false, false, 0),
@@ -81,9 +82,15 @@ export default {
       } else {
         this.$router.push({name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon }})
       }
+    },
+    wait () {
+      this.waited = true
     }
   },
-  beforeRouteLeave (to, from , next) {
+  mounted () {
+    window.setTimeout(() => { this.wait() }, 400)
+  },
+  beforeRouteLeave (to, from, next) {
     const answer = window.confirm('If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?')
     if (answer) {
       next()
