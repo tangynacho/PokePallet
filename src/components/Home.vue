@@ -13,9 +13,7 @@
           </li>
           <li>
             Once you have rated all of the pokemon, you can see a whole bunch of
-            stats about your preference in pokemon. Things like which generation
-            you like the best, your favorite types, your preferred egg group,
-            and much more!
+            stats about your preference in pokemon. Click <router-link v-bind:to="'/supported'">here</router-link> for a list of currently supported stats.
           </li>
           <li>
             If you don't have time to rate every pokemon in one sitting, you can

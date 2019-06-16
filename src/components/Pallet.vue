@@ -7,7 +7,8 @@
             v-for="mon in pokemon"
             :key="mon.name"
             class="title text-xs-left"
-          >{{mon.name}}: {{numToText(mon.rating)}}</v-card-text>
+            >{{ mon.name }}: {{ numToText(mon.rating) }}</v-card-text
+          >
         </v-card>
       </v-flex>
     </v-layout>
@@ -68,7 +69,9 @@ export default {
     }
   },
   beforeRouteLeave (to, from, next) {
-    const answer = window.confirm('If leave this page and you have not saved your PokePallet, you cannot get it back. Are you sure you want to leave?')
+    const answer = window.confirm(
+      'If leave this page and you have not saved your PokePallet, you cannot get it back. Are you sure you want to leave?'
+    )
     if (answer) {
       next()
     } else {

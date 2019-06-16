@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import New from '@/components/templates/NewPage'
 import Ratings from '@/components/Ratings'
 import Pallet from '@/components/Pallet'
+import Supported from '@/components/Supported'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/pallet',
       name: 'Pallet',
       component: Pallet
+    },
+    {
+      path: '/supported',
+      name: 'Supported',
+      component: Supported
     }
   ]
 })
