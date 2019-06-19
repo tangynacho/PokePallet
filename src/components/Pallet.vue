@@ -7,8 +7,7 @@
             v-for="mon in pokemon"
             :key="mon.name"
             class="title text-xs-left"
-            >{{ mon.name }}: {{ numToText(mon.rating) }}</v-card-text
-          >
+          >{{ mon.name }}: {{ numToText(mon.rating) }}</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>

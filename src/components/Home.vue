@@ -8,12 +8,12 @@
             You'll be presented with each and every pokemon in existence, one at
             a time.
           </li>
-          <li>
-            Then, you'll give that pokemon a rating and move on to the next one.
-          </li>
+          <li>Then, you'll give that pokemon a rating and move on to the next one.</li>
           <li>
             Once you have rated all of the pokemon, you can see a whole bunch of
-            stats about your preference in pokemon. Click <router-link v-bind:to="'/supported'">here</router-link> for a list of currently supported stats.
+            stats about your preference in pokemon. Click
+            <router-link v-bind:to="'/supported'">here</router-link>
+            <span>for a list of currently supported stats.</span>
           </li>
           <li>
             If you don't have time to rate every pokemon in one sitting, you can
@@ -31,24 +31,21 @@
               color="red"
               class="white--text font-weight-bold mode-btn"
               @click="setmode('like')"
-              >LIKE / DISLIKE</v-btn
-            >Simply like or dislike each pokemon.
+            >LIKE / DISLIKE</v-btn>Simply like or dislike each pokemon.
           </p>
           <p :class="`${liltext} text-xs-left`">
             <v-btn
               color="green"
               class="white--text font-weight-bold mode-btn"
               @click="setmode('spec')"
-              >SPECTRUM</v-btn
-            >Choose a rating for each pokemon on a spectrum from love to hate.
+            >SPECTRUM</v-btn>Choose a rating for each pokemon on a spectrum from love to hate.
           </p>
           <p :class="`${liltext} text-xs-left`">
             <v-btn
               color="blue"
               class="white--text font-weight-bold mode-btn"
               @click="setmode('tens')"
-              >TEN-SCALE</v-btn
-            >Rate each pokemon on a scale from 1 to 10.
+            >TEN-SCALE</v-btn>Rate each pokemon on a scale from 1 to 10.
           </p>
         </v-card>
       </v-flex>
@@ -89,7 +86,7 @@ export default {
   },
   methods: {
     setmode (mode) {
-      this.$router.push({name: 'Ratings', params: { mode: mode }})
+      this.$router.push({ name: 'Ratings', params: { mode: mode } })
     }
   }
 }
