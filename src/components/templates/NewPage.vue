@@ -11,7 +11,32 @@
 
 <script>
 export default {
-  name: 'NewPage'
+  name: 'NewPage',
+  data () {
+    return {
+      h: window.innerHeight,
+      w: window.innerWidth
+    }
+  },
+  computed: {
+    bigtext () {
+      return this.h < 720
+        ? 'display-1'
+        : this.h > 1080
+          ? 'display-3'
+          : 'display-2'
+    },
+    medtext () {
+      return this.h < 720
+        ? 'headline'
+        : this.h > 1080
+          ? 'display-2'
+          : 'display-1'
+    },
+    liltext () {
+      return this.h < 720 ? 'title' : this.h > 1080 ? 'display-1' : 'headline'
+    }
+  }
 }
 </script>
 

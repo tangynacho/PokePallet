@@ -1,6 +1,9 @@
 <template>
   <div class="colored">
     <p class="title text-xs-left ml-2">
+      <v-btn icon title="Home" @click="$router.push({ name: 'Home'})">
+        <v-icon color="white">mdi-home</v-icon>
+      </v-btn>
       <v-btn icon title="Save your PokePallet">
         <v-icon color="white">mdi-floppy</v-icon>
       </v-btn>
