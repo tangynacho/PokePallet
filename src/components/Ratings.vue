@@ -8,8 +8,21 @@
             :max-width="w/4"
             class="center"
           />
+          <v-layout justify-center my-4>
+            <v-img
+              :src="require(`@/assets/images/types/${current.types[0]}.png`)"
+              class="type-img"
+            />
+            <v-img
+              :src="require(`@/assets/images/types/${current.types[1]}.png`)"
+              class="type-img"
+            />
+          </v-layout>
         </v-card>
-        <p class="display-1 mt-3" v-animate-css="'fadeInDown'">#{{currentID}} {{current.name}}</p>
+        <p
+          :class="medtext + ' mt-3'"
+          v-animate-css="'fadeInDown'"
+        >#{{currentID.replace(/\D/g,'')}} {{current.name}}</p>
         <div v-animate-css="'fadeInUp'">
           <v-layout v-if="mode === 'like'" justify-center>
             <v-btn color="red" class="white--text" @click="next(3)">DISLIKE</v-btn>
@@ -41,57 +54,125 @@
 </template>
 
 <script>
-const mon = (name, types, gen, rating) => ({ name, types, gen, rating })
+// the pokemon object
+const mon = (data) => {
+  let def = {
+    name: 'Missingno',
+    rating: 0,
+    types: ['normal'],
+    gen: 0,
+    mega: false,
+    ultra: false,
+    alolan: false
+  }
+  def = data
+  return def
+}
+
+// true flags for easier flag setting
+const mega = true
 
 export default {
   name: 'Ratings',
   data () {
     return {
+      // router parameters
       mode: (this.$route.params.mode) ? this.$route.params.mode : 'like',
-      i: 0,
+      megas: (this.$route.params.megas) ? this.$route.params.megas : false,
+      meagsGen6: (this.$route.params.megasGen6) ? this.$route.params.megasGen6 : false,
+      alolans: (this.$route.params.alolans) ? this.$route.params.alolans : false,
+      alolansGen7: (this.$route.params.alolansGen7) ? this.$route.params.alolansGen7 : false,
+      ultraLegends: (this.$route.params.ultraLegends) ? this.$route.params.ultraLegends : false,
+      // window info
       h: window.innerHeight,
       w: window.innerWidth,
+      // variable for mount stalling
       waited: false,
+      // current index
+      i: 0,
+      // all pokemon
       pokemon: {
-        '001': mon('Bulbasaur', ['grass', 'poison'], 1, 0),
-        '002': mon('Ivysaur', ['grass', 'poison'], 1, 0),
-        '003': mon('Venusaur', ['grass', 'poison'], 1, 0),
-        '003m': mon('Mega Venusaur', ['grass', 'poison'], 1, 0),
-        '004': mon('Charmander', ['fire', 'fire'], 1, 0),
-        '005': mon('Charmeleon', ['fire', 'fire'], 1, 0),
-        '006': mon('Charizard', ['fire', 'flying'], 0),
-        '006mx': mon('Mega Charizard X', ['fire', 'dragon'], 1, 0),
-        '006my': mon('Mega Charizard Y', ['fire', 'flying'], 1, 0),
-        '007': mon('Squirtle', ['water', 'water'], 1, 0),
-        '008': mon('Wartortle', ['water', 'water'], 1, 0),
-        '009': mon('Blastoise', ['water', 'water'], 1, 0),
-        '009m': mon('Mega Blastoise', ['water', 'water'], 1, 0),
-        '010': mon('Caterpie', ['bug', 'bug'], 1, 0)
+        '001': mon({ name: 'Bulbasaur', types: ['grass', 'poison'], gen: 1 }),
+        '002': mon({ name: 'Ivysaur', types: ['grass', 'poison'], gen: 1 }),
+        '003': mon({ name: 'Venusaur', types: ['grass', 'poison'], gen: 1 }),
+        '003m': mon({ name: 'Mega Venusaur', types: ['grass', 'poison'], gen: 1, mega }),
+        '004': mon({ name: 'Charmander', types: ['fire'], gen: 1 }),
+        '005': mon({ name: 'Charmeleon', type: ['fire'], gen: 1 }),
+        '006': mon({ name: 'Charizard', types: ['fire', 'flying'], gen: 1 }),
+        '006mx': mon({ name: 'Mega Charizard X', types: ['fire', 'dragon'], gen: 1, mega }),
+        '006my': mon({ name: 'Mega Charizard Y', types: ['fire', 'flying'], gen: 1, mega }),
+        '007': mon({ name: 'Squirtle', types: ['water'], gen: 1 }),
+        '008': mon({ name: 'Wartortle', types: ['water'], gen: 1 }),
+        '009': mon({ name: 'Blastoise', types: ['water'], gen: 1 }),
+        '009m': mon({ name: 'Mega Blastoise', types: ['water'], gen: 1, mega }),
+        '010': mon({ name: 'Caterpie', types: ['bug'], gen: 1 })
       }
     }
   },
   computed: {
+    // the pokedex number of the current pokemon
     currentID () {
       return Object.keys(this.pokemon)[this.i]
     },
+    // the current pokemon
     current () {
       return this.pokemon[this.currentID]
+    },
+    // determine font size
+    bigtext () {
+      return this.h < 720
+        ? 'display-1'
+        : this.h > 1080
+          ? 'display-3'
+          : 'display-2'
+    },
+    medtext () {
+      return this.h < 720
+        ? 'headline'
+        : this.h > 1080
+          ? 'display-2'
+          : 'display-1'
+    },
+    liltext () {
+      return this.h < 720 ? 'title' : this.h > 1080 ? 'display-1' : 'headline'
     }
   },
   methods: {
+    // assign the chosen rating to the current pokemon and move to the next one
     next (r) {
+      // set the rating
       this.current.rating = r
+      // if not at the end
       if ((this.i + 1) < Object.keys(this.pokemon).length) {
+        // move forward 1
         this.i++
       } else {
-        this.$router.push({ name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon } })
+        // otherwise, route to Pallet
+        this.$router.push({ name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon, megas: this.megas, megasGen6: this.megasGen6, alolans: this.alolans, alolansGen7: this.alolansGen7, ultraLegends: this.ultraLegends } })
+      }
+
+      // flag checks
+
+      // if mega or alolan and the user has chosen not to include them
+      while ((this.current.mega && !this.megas) || (this.current.alolan && !this.alolans)) {
+        // skip forward 1
+        this.i++
+      }
+      // if mega and user has chosen to consider all megas gen 6
+      if (this.current.mega && this.megasGen6) {
+        // set gen to 6
+        this.current.gen = 6
+      }
+      // if alolan and user has chosen to consider all alolans gen 7
+      if (this.current.alolan && this.alolansGen7) {
+        this.current.gen = 7
       }
     },
     wait () {
       this.waited = true
     }
   },
-  mounted () {
+  beforeMount () {
     window.setTimeout(() => { this.wait() }, 400)
   },
   beforeRouteLeave (to, from, next) {
@@ -114,5 +195,9 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+.type-img {
+  height: 100px;
+  width: auto;
 }
 </style>

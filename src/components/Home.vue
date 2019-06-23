@@ -84,18 +84,21 @@ export default {
   name: 'Home',
   data () {
     return {
+      // window info
       h: window.innerHeight,
       w: window.innerWidth,
-      pokemon: undefined,
+      // mode variable
       mode: undefined,
+      // flags
       megas: false,
-      alolans: false,
-      ultraLegends: false,
       megasGen6: false,
-      alolansGen7: false
+      alolans: false,
+      alolansGen7: false,
+      ultraLegends: false
     }
   },
   computed: {
+    // determine font size
     bigtext () {
       return this.h < 720
         ? 'display-1'
@@ -115,8 +118,9 @@ export default {
     }
   },
   methods: {
+    // set the mode and begin rating
     setmode (mode) {
-      this.$router.push({ name: 'Ratings', params: { mode: mode } })
+      this.$router.push({ name: 'Ratings', params: { mode, megas: this.megas, megasGen6: this.megasGen6, alolans: this.alolans, alolansGen7: this.alolansGen7, ultraLegends: this.ultraLegends } })
     }
   }
 }
