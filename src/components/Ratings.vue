@@ -7,16 +7,19 @@
             :src="require(`@/assets/images/${current.name}.png`)"
             :max-width="w/4"
             class="center"
+            mb-4
           />
           <v-layout justify-center my-4>
             <v-img
-              :src="require(`@/assets/images/types/${current.types[0]}.png`)"
-              class="type-img"
+              :src="require(`@/assets/images/types/${current.types[0]}Symbol.png`)"
+              class="type-img mt-4 mx-4"
+              v-animate-css="'fadeIn fast'"
             />
             <v-img
               v-if="current.types.length > 1"
-              :src="require(`@/assets/images/types/${current.types[1]}.png`)"
-              class="type-img"
+              :src="require(`@/assets/images/types/${current.types[1]}Symbol.png`)"
+              class="type-img mt-4 mx-4"
+              v-animate-css="'fadeIn fast'"
             />
           </v-layout>
         </v-card>
@@ -200,7 +203,7 @@ export default {
   margin-right: auto;
 }
 .type-img {
-  height: 100px;
-  width: auto;
+  max-width: 150px;
+  height: auto;
 }
 </style>
