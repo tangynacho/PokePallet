@@ -14,6 +14,7 @@
               class="type-img"
             />
             <v-img
+              v-if="current.types.length > 1"
               :src="require(`@/assets/images/types/${current.types[1]}.png`)"
               class="type-img"
             />
@@ -97,7 +98,7 @@ export default {
         '003': mon({ name: 'Venusaur', types: ['grass', 'poison'], gen: 1 }),
         '003m': mon({ name: 'Mega Venusaur', types: ['grass', 'poison'], gen: 1, mega }),
         '004': mon({ name: 'Charmander', types: ['fire'], gen: 1 }),
-        '005': mon({ name: 'Charmeleon', type: ['fire'], gen: 1 }),
+        '005': mon({ name: 'Charmeleon', types: ['fire'], gen: 1 }),
         '006': mon({ name: 'Charizard', types: ['fire', 'flying'], gen: 1 }),
         '006mx': mon({ name: 'Mega Charizard X', types: ['fire', 'dragon'], gen: 1, mega }),
         '006my': mon({ name: 'Mega Charizard Y', types: ['fire', 'flying'], gen: 1, mega }),
@@ -105,7 +106,9 @@ export default {
         '008': mon({ name: 'Wartortle', types: ['water'], gen: 1 }),
         '009': mon({ name: 'Blastoise', types: ['water'], gen: 1 }),
         '009m': mon({ name: 'Mega Blastoise', types: ['water'], gen: 1, mega }),
-        '010': mon({ name: 'Caterpie', types: ['bug'], gen: 1 })
+        '010': mon({ name: 'Caterpie', types: ['bug'], gen: 1 }),
+        '011': mon({ name: 'Metapod', types: ['bug'], gen: 1 }),
+        '012': mon({ name: 'Butterfree', types: ['bug', 'flying'], gen: 1 })
       }
     }
   },
