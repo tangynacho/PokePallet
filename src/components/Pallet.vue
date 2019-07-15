@@ -5,9 +5,9 @@
         <v-card>
           <v-card-text
             v-for="mon in pokemon"
-            :key="mon.name"
+            :key="mon.data.name"
             class="title text-xs-left"
-          >{{ mon.name }}: {{ numToText(mon.rating) }}</v-card-text>
+          >{{ mon.data.name }}: {{ numToText(mon.data.rating) }}</v-card-text>
         </v-card>
       </v-flex>
     </v-layout>

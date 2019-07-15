@@ -1,0 +1,26 @@
+{
+  "001": {
+    "stage": "3",
+    "rating": 0,
+    "stages": "3",
+    "name": "Bulbasaur",
+    "mega": false,
+    "color": "green",
+    "psuedo": false,
+    "regional_bird": false,
+    "regional_bug": false,
+    "alolan": false,
+    "legendary": false,
+    "regional_rodent": false,
+    "baby": false,
+    "types": [
+      "grass",
+      "poison"
+    ],
+    "line": "001",
+    "ultra": false,
+    "gen": "1",
+    "starter": true,
+    "mythical": false
+  }
+}

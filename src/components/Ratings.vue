@@ -58,23 +58,18 @@
 </template>
 
 <script>
-// the pokemon object
-const mon = (data) => {
-  let def = {
-    name: 'Missingno',
-    rating: 0,
-    types: ['normal'],
-    gen: 0,
-    mega: false,
-    ultra: false,
-    alolan: false
-  }
-  def = data
-  return def
-}
-
-// true flags for easier flag setting
-const mega = true
+// loads the json file
+let pokemonJSON = require('@/data/pokemon.json')
+// turns the Object into an array of Objects
+let pokemon = Object.keys(pokemonJSON).map(function (key) {
+  return { 'id': key, 'data': pokemonJSON[key] }
+})
+// sorts the array by id number
+pokemon.sort(function (x, y) {
+  if (x.id < y.id) { return -1 }
+  if (x.id > y.id) { return 1 }
+  return 0
+})
 
 export default {
   name: 'Ratings',
@@ -95,34 +90,17 @@ export default {
       // current index
       i: 0,
       // all pokemon
-      pokemon: {
-        '001': mon({ name: 'Bulbasaur', types: ['grass', 'poison'], gen: 1 }),
-        '002': mon({ name: 'Ivysaur', types: ['grass', 'poison'], gen: 1 }),
-        '003': mon({ name: 'Venusaur', types: ['grass', 'poison'], gen: 1 }),
-        '003m': mon({ name: 'Mega Venusaur', types: ['grass', 'poison'], gen: 1, mega }),
-        '004': mon({ name: 'Charmander', types: ['fire'], gen: 1 }),
-        '005': mon({ name: 'Charmeleon', types: ['fire'], gen: 1 }),
-        '006': mon({ name: 'Charizard', types: ['fire', 'flying'], gen: 1 }),
-        '006mx': mon({ name: 'Mega Charizard X', types: ['fire', 'dragon'], gen: 1, mega }),
-        '006my': mon({ name: 'Mega Charizard Y', types: ['fire', 'flying'], gen: 1, mega }),
-        '007': mon({ name: 'Squirtle', types: ['water'], gen: 1 }),
-        '008': mon({ name: 'Wartortle', types: ['water'], gen: 1 }),
-        '009': mon({ name: 'Blastoise', types: ['water'], gen: 1 }),
-        '009m': mon({ name: 'Mega Blastoise', types: ['water'], gen: 1, mega }),
-        '010': mon({ name: 'Caterpie', types: ['bug'], gen: 1 }),
-        '011': mon({ name: 'Metapod', types: ['bug'], gen: 1 }),
-        '012': mon({ name: 'Butterfree', types: ['bug', 'flying'], gen: 1 })
-      }
+      pokemon: pokemon
     }
   },
   computed: {
     // the pokedex number of the current pokemon
     currentID () {
-      return Object.keys(this.pokemon)[this.i]
+      return this.pokemon[this.i].id
     },
     // the current pokemon
     current () {
-      return this.pokemon[this.currentID]
+      return this.pokemon[this.i].data
     },
     // determine font size
     bigtext () {
@@ -149,7 +127,7 @@ export default {
       // set the rating
       this.current.rating = r
       // if not at the end
-      if ((this.i + 1) < Object.keys(this.pokemon).length) {
+      if ((this.i + 1) < this.pokemon.length) {
         // move forward 1
         this.i++
       } else {
