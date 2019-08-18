@@ -151,6 +151,10 @@ export default {
       if (this.current.alolan && this.alolansGen7) {
         this.current.gen = 7
       }
+      // if ultra and user has chosen to consider all utras legendary
+      if (this.current.ultra && this.ultraLegends) {
+        this.current.legend = true
+      }
     },
     wait () {
       this.waited = true

@@ -53,6 +53,7 @@
           <p :class="medtext">To get started, choose a rating system below:</p>
           <p :class="`${liltext} text-xs-left`">
             <v-btn
+              disabled
               color="red"
               class="white--text font-weight-bold mode-btn"
               @click="setmode('like')"
@@ -60,6 +61,7 @@
           </p>
           <p :class="`${liltext} text-xs-left`">
             <v-btn
+              disabled
               color="green"
               class="white--text font-weight-bold mode-btn"
               @click="setmode('spec')"
