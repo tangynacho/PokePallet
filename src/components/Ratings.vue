@@ -76,7 +76,7 @@ export default {
   data () {
     return {
       // router parameters
-      mode: (this.$route.params.mode) ? this.$route.params.mode : 'like',
+      mode: (this.$route.params.mode) ? this.$route.params.mode : 'tens',
       megas: (this.$route.params.megas) ? this.$route.params.megas : false,
       meagsGen6: (this.$route.params.megasGen6) ? this.$route.params.megasGen6 : false,
       alolans: (this.$route.params.alolans) ? this.$route.params.alolans : false,
@@ -153,7 +153,7 @@ export default {
       }
       // if ultra and user has chosen to consider all utras legendary
       if (this.current.ultra && this.ultraLegends) {
-        this.current.legend = true
+        this.current.legendary = true
       }
     },
     wait () {
