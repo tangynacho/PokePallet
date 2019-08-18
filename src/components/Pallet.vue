@@ -22,7 +22,13 @@ export default {
       pokemon: this.$route.params.pokemon
     }
   },
+  mounted () {
+    this.process()
+  },
   methods: {
+    process () {
+
+    },
     numToText (n) {
       if (n === 1) {
         if (this.mode === 'spec') {
