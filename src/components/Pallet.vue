@@ -73,7 +73,7 @@ function valueCheck (array, value, v, rating) {
       dict = d
     }
   })
-  if (dict) {
+  if (dict !== undefined) {
     dict.count++
     dict.score += rating
   } else {
@@ -96,6 +96,7 @@ export default {
       ts: ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'],
       gs: ['1', '2', '3', '4', '5', '6', '7'],
       cs: ['red', 'blue', 'yellow', 'green', 'black', 'brown', 'purple', 'gray', 'white', 'pink'],
+      all: [],
       types: [],
       gens: [],
       colors: [],
@@ -152,6 +153,7 @@ export default {
       // for each pokemon
       this.pokemon.forEach(mon => {
         mon = mon.data
+
         // none of this is relevant to mega evolutions
         if (!mon.mega) {
           // extract relevant attributes from current pokemon
@@ -221,9 +223,7 @@ export default {
           }
           // if pokemon is in a starter line
           if (starter) {
-            console.log(this.starter_lines)
             this.starter_lines = valueCheck(this.starter_lines, 'line', line, rating)
-            console.log(this.starter_lines)
             this.gens_by_starters = valueCheck(this.gens_by_starters, 'gen', gen, rating)
             this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, 'gen', gen, rating)
           }
