@@ -193,8 +193,7 @@ export default {
       return eval('this.' + this.sortBy)
     },
     sortedPokemon () {
-      let sortedmon = this.pokemon
-      return sortedmon.sort(ratingSort)
+      return this.pokemon.concat().sort(ratingSort)
     }
   },
   mounted () {
