@@ -6,7 +6,7 @@
       <v-btn color="green" class="white--text" @click="changeSort('gens')">GENS</v-btn>
       <v-btn color="blue" class="white--text" @click="changeSort('colors')">COLORS</v-btn>
     </v-layout>
-    <v-layout justify-center mb-4>
+    <v-flex class="mb-4">
       <v-btn
         color="grey darken-2"
         class="white--text"
@@ -20,20 +20,58 @@
       <v-btn
         color="grey darken-2"
         class="white--text"
+        @click="changeSort('pseudo_lines')"
+      >PSEUDO LEGENDARY LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
         @click="changeSort('starter_lines')"
       >STARTER LINES</v-btn>
       <v-btn
         color="grey darken-2"
         class="white--text"
         @click="changeSort('gens_by_starters')"
-      >GENS BY STARTERS</v-btn>
-    </v-layout>
+      >GENS BY STARTER LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('regional_birds')"
+      >REGIONAL BIRD LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('regional_rodents')"
+      >REGIONAL RODENT LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('regional_bugs')"
+      >REGIONAL BUG LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('regional_sets_with_starters')"
+      >REGIONAL SETS</v-btn>
+      <br />
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('rating', { starter: true, stage: '1' })"
+      >FIRST FORM STARTERS</v-btn>
+    </v-flex>
     <v-layout justify-center>
       <v-flex xs6>
         <v-card v-if="sortBy === 'rating'">
-          <v-card-text v-for="mon in pokemon" :key="mon.data.name" class="title text-xs-left">
-            {{ mon.data.name }}: {{ mon.data.rating }}
-            <v-progress-linear class="mb-0" color="yellow" height="20" :value="mon.data.rating*10" />
+          <v-card-text v-for="mon in sortedPokemon" :key="mon.data.name" class="title text-xs-left">
+            <span v-if="allowed(mon.data)">
+              {{ mon.data.name }}: {{ mon.data.rating }}
+              <v-progress-linear
+                class="mb-0"
+                color="yellow"
+                height="20"
+                :value="mon.data.rating*10"
+              />
+            </span>
           </v-card-text>
         </v-card>
         <v-card v-else-if="sortedArray.length === 0">
@@ -90,6 +128,15 @@ function avgSort (a, b) {
   return 0
 }
 
+function ratingSort (a, b) {
+  if (a.data.rating > b.data.rating) {
+    return -1
+  } else if (a.data.rating < b.data.rating) {
+    return 1
+  }
+  return 0
+}
+
 function valueCheck (array, value, rating) {
   let arr = array
   let dict
@@ -118,8 +165,6 @@ export default {
     return {
       mode: this.$route.params.mode,
       pokemon: this.$route.params.pokemon,
-      sortBy: 'rating',
-      lineSorts: ['two_stages', 'three_stages', 'pseudo_lines', 'starter_lines', 'regional_birds', 'regional_rodents', 'regional_bugs'],
       ts: ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'],
       gs: ['1', '2', '3', '4', '5', '6', '7'],
       cs: ['red', 'blue', 'yellow', 'green', 'black', 'brown', 'purple', 'gray', 'white', 'pink'],
@@ -136,13 +181,20 @@ export default {
       regional_rodents: [],
       regional_bugs: [],
       regional_sets: [],
-      regional_sets_with_starters: []
+      regional_sets_with_starters: [],
+      sortBy: 'rating',
+      lineSorts: ['two_stages', 'three_stages', 'pseudo_lines', 'starter_lines', 'regional_birds', 'regional_rodents', 'regional_bugs'],
+      onlyShow: {}
     }
   },
   computed: {
     sortedArray () {
       /* eslint-disable no-eval */
       return eval('this.' + this.sortBy)
+    },
+    sortedPokemon () {
+      let sortedmon = this.pokemon
+      return sortedmon.sort(ratingSort)
     }
   },
   mounted () {
@@ -332,8 +384,19 @@ export default {
         return '10'
       }
     },
-    changeSort (s) {
+    changeSort (s, o = {}) {
       this.sortBy = s
+      this.onlyShow = o
+    },
+    allowed (mon) {
+      let al = true
+      const keys = Object.keys(this.onlyShow)
+      keys.forEach(key => {
+        if (mon[key] !== this.onlyShow[key]) {
+          al = false
+        }
+      })
+      return al
     }
   },
   beforeRouteLeave (to, from, next) {
