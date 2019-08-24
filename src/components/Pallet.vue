@@ -1,28 +1,55 @@
 <template>
   <v-container fluid>
-    <v-layout justify-center mb-4>
+    <v-btn color="black" class="white--text" @click="changeSort('rating')">ALL POKEMON</v-btn>
+    <v-layout justify-center>
       <v-btn color="red" class="white--text" @click="changeSort('types')">TYPES</v-btn>
       <v-btn color="green" class="white--text" @click="changeSort('gens')">GENS</v-btn>
       <v-btn color="blue" class="white--text" @click="changeSort('colors')">COLORS</v-btn>
-      <v-btn color="yellow" class="white--text" @click="changeSort('starter_lines')">STARTERS</v-btn>
+    </v-layout>
+    <v-layout justify-center mb-4>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('two_stages')"
+      >TWO STAGE LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('three_stages')"
+      >THREE STAGE LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('starter_lines')"
+      >STARTER LINES</v-btn>
+      <v-btn
+        color="grey darken-2"
+        class="white--text"
+        @click="changeSort('gens_by_starters')"
+      >GENS BY STARTERS</v-btn>
     </v-layout>
     <v-layout justify-center>
       <v-flex xs6>
         <v-card v-if="sortBy === 'rating'">
-          <v-card-text
-            v-for="mon in pokemon"
-            :key="mon.data.name"
-            class="title text-xs-left"
-          >{{ mon.data.name }}: {{ numToText(mon.data.rating) }}</v-card-text>
+          <v-card-text v-for="mon in pokemon" :key="mon.data.name" class="title text-xs-left">
+            {{ mon.data.name }}: {{ mon.data.rating }}
+            <v-progress-linear class="mb-0" color="yellow" height="20" :value="mon.data.rating*10" />
+          </v-card-text>
         </v-card>
-        <v-card v-else-if="sortBy === 'starter_lines'">
+        <v-card v-else-if="sortedArray.length === 0">
+          <v-card-text class="title text-xs-left">No results.</v-card-text>
+        </v-card>
+        <v-card v-else-if="lineSorts.includes(sortBy)">
           <v-card-text
             v-for="x in sortedArray"
             :key="sortedArray.indexOf(x)"
             class="title text-xs-left"
           >
             <span v-for="mon in pokemon" :key="mon.id">
-              <span v-if="mon.id === x.key">{{ mon.data.name }}: {{ x.avg }}</span>
+              <span v-if="mon.id === x.key">
+                {{ mon.data.name }}: {{ x.avg }}
+                <v-progress-linear class="mb-0" color="yellow" height="20" :value="x.avg*10" />
+              </span>
             </span>
           </v-card-text>
         </v-card>
@@ -31,7 +58,10 @@
             v-for="x in sortedArray"
             :key="sortedArray.indexOf(x)"
             class="title text-xs-left"
-          >{{ x.key }}: {{ x.avg }}</v-card-text>
+          >
+            {{ x.key }}: {{ x.avg }}
+            <v-progress-linear class="mb-0" color="yellow" height="20" :value="x.avg*10" />
+          </v-card-text>
         </v-card>
       </v-flex>
     </v-layout>
@@ -89,6 +119,7 @@ export default {
       mode: this.$route.params.mode,
       pokemon: this.$route.params.pokemon,
       sortBy: 'rating',
+      lineSorts: ['two_stages', 'three_stages', 'pseudo_lines', 'starter_lines', 'regional_birds', 'regional_rodents', 'regional_bugs'],
       ts: ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'],
       gs: ['1', '2', '3', '4', '5', '6', '7'],
       cs: ['red', 'blue', 'yellow', 'green', 'black', 'brown', 'purple', 'gray', 'white', 'pink'],
