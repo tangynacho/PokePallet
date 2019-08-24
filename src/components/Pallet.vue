@@ -60,16 +60,12 @@ function avgSort (a, b) {
   return 0
 }
 
-function valueCheck (array, value, v, rating) {
+function valueCheck (array, value, rating) {
+  let arr = array
   let dict
-  array.forEach(d => {
-    let val
-    if (value === 'line') {
-      val = d.line
-    } else if (value === 'gen') {
-      val = d.gen
-    }
-    if (val === v) {
+  arr.forEach(d => {
+    let val = d.key
+    if (val === value) {
       dict = d
     }
   })
@@ -77,14 +73,14 @@ function valueCheck (array, value, v, rating) {
     dict.count++
     dict.score += rating
   } else {
-    array.push({
-      key: v,
+    arr.push({
+      key: value,
       count: 1,
       score: rating,
       avg: 0
     })
   }
-  return array
+  return arr
 }
 
 export default {
@@ -211,39 +207,39 @@ export default {
           colorDict.score += rating
           // if pokemon is in a 2-stage line
           if (stages === 2) {
-            this.two_stages = valueCheck(this.two_stages, 'line', line, rating)
+            this.two_stages = valueCheck(this.two_stages, line, rating)
           }
           // if pokemon is in a 3-stage line
           if (stages === 3) {
-            this.three_stages = valueCheck(this.three_stages, 'line', line, rating)
+            this.three_stages = valueCheck(this.three_stages, line, rating)
           }
           // if pokemon is in a pseudo-legendary line
           if (pseudo) {
-            this.pseudo_lines = valueCheck(this.pseudo_lines, 'line', line, rating)
+            this.pseudo_lines = valueCheck(this.pseudo_lines, line, rating)
           }
           // if pokemon is in a starter line
           if (starter) {
-            this.starter_lines = valueCheck(this.starter_lines, 'line', line, rating)
-            this.gens_by_starters = valueCheck(this.gens_by_starters, 'gen', gen, rating)
-            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, 'gen', gen, rating)
+            this.starter_lines = valueCheck(this.starter_lines, line, rating)
+            this.gens_by_starters = valueCheck(this.gens_by_starters, gen, rating)
+            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, gen, rating)
           }
           // if pokemon is in a regional bird line
           if (regionalBird) {
-            this.regional_birds = valueCheck(this.regional_birds, 'line', line, rating)
-            this.regional_sets = valueCheck(this.regional_sets, 'gen', gen, rating)
-            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, 'gen', gen, rating)
+            this.regional_birds = valueCheck(this.regional_birds, line, rating)
+            this.regional_sets = valueCheck(this.regional_sets, gen, rating)
+            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, gen, rating)
           }
           // if pokemon is in a regional rodent line
           if (regionalRodent) {
-            this.regional_rodents = valueCheck(this.regional_rodents, 'line', line, rating)
-            this.regional_sets = valueCheck(this.regional_sets, 'gen', gen, rating)
-            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, 'gen', gen, rating)
+            this.regional_rodents = valueCheck(this.regional_rodents, line, rating)
+            this.regional_sets = valueCheck(this.regional_sets, gen, rating)
+            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, gen, rating)
           }
           // if pokemon is in a regional bug line
           if (regionalBug) {
-            this.regional_bugs = valueCheck(this.regional_bugs, 'line', line, rating)
-            this.regional_sets = valueCheck(this.regional_sets, 'gen', gen, rating)
-            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, 'gen', gen, rating)
+            this.regional_bugs = valueCheck(this.regional_bugs, line, rating)
+            this.regional_sets = valueCheck(this.regional_sets, gen, rating)
+            this.regional_sets_with_starters = valueCheck(this.regional_sets_with_starters, gen, rating)
           }
         }
       })
