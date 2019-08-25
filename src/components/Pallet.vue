@@ -17,6 +17,13 @@
       <v-btn dark @click="changeSort('regional_bugs')">REGIONAL BUG LINES</v-btn>
       <v-btn dark @click="changeSort('regional_sets_with_starters')">REGIONAL SETS</v-btn>
       <br />
+      <v-btn
+        v-for="t in ts"
+        :key="t"
+        dark
+        @click="changeSort('ratings', { types: t })"
+      >{{ t }} TYPES</v-btn>
+      <v-btn dark @click="changeSort('ratings', { stages: '1' })">SINGLE FORMS</v-btn>
       <v-btn dark @click="changeSort('ratings', { starter: true, stage: '1' })">FIRST FORM STARTERS</v-btn>
       <v-btn dark @click="changeSort('ratings', { starter: true, stage: '2' })">MIDDLE FORM STARTERS</v-btn>
       <v-btn dark @click="changeSort('ratings', { starter: true, stage: '3' })">FINAL FORM STARTERS</v-btn>
@@ -135,7 +142,6 @@ export default {
       ts: ['normal', 'fire', 'fighting', 'water', 'flying', 'grass', 'poison', 'electric', 'ground', 'psychic', 'rock', 'ice', 'bug', 'dragon', 'ghost', 'dark', 'steel', 'fairy'],
       gs: ['1', '2', '3', '4', '5', '6', '7'],
       cs: ['red', 'blue', 'yellow', 'green', 'black', 'brown', 'purple', 'gray', 'white', 'pink'],
-      all: [],
       types: [],
       gens: [],
       colors: [],
@@ -373,7 +379,7 @@ export default {
         return '10'
       }
     },
-    changeSort (s, o = {}) {
+    changeSort (s = 'ratings', o = {}) {
       this.sortBy = s
       this.onlyShow = o
     },
@@ -381,8 +387,14 @@ export default {
       let al = true
       const keys = Object.keys(this.onlyShow)
       keys.forEach(key => {
-        if (mon[key] !== this.onlyShow[key]) {
-          al = false
+        if (key !== 'types') {
+          if (mon[key] !== this.onlyShow[key]) {
+            al = false
+          }
+        } else {
+          if (mon[key][0] !== this.onlyShow[key] && mon[key][1] !== this.onlyShow[key]) {
+            al = false
+          }
         }
       })
       return al
