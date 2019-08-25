@@ -28,23 +28,23 @@
           <p :class="medtext">Here are some options to customize your experience:</p>
           <v-flex text-xs-left>
             <div class="my-2">
-              <input class="my-box ml-3 mr-1" type="checkbox" v-model="megas" disabled />
+              <input class="my-box ml-3 mr-1" type="checkbox" v-model="megas" />
               <label class="title">Include Mega Evolutions</label>
             </div>
             <div class="mb-3 ml-4" v-if="megas">
-              <input class="my-box ml-3 mr-1" type="checkbox" v-model="megasGen6" disabled />
+              <input class="my-box ml-3 mr-1" type="checkbox" v-model="megasGen6" />
               <label class="title">Consider all Mega Evolutions as Generation 6 Pokemon</label>
             </div>
             <div class="my-2">
-              <input class="my-box ml-3 mr-1" type="checkbox" v-model="alolans" disabled />
+              <input class="my-box ml-3 mr-1" type="checkbox" v-model="alolans" />
               <label class="title">Include Alolan Forms</label>
             </div>
             <div class="mb-3 ml-4" v-if="alolans">
-              <input class="my-box ml-3 mr-1" type="checkbox" v-model="alolansGen7" disabled />
+              <input class="my-box ml-3 mr-1" type="checkbox" v-model="alolansGen7" />
               <label class="title">Consider all Alolan Forms as Generation 7 Pokemon</label>
             </div>
             <div class="my-2">
-              <input class="my-box ml-3 mr-1" type="checkbox" v-model="ultraLegends" disabled />
+              <input class="my-box ml-3 mr-1" type="checkbox" v-model="ultraLegends" />
               <label class="title">Consider Ultra-Beasts as Legendaries</label>
             </div>
           </v-flex>
