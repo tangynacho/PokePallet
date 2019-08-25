@@ -1,104 +1,73 @@
 <template>
   <v-container fluid>
-    <v-btn color="black" class="white--text" @click="changeSort('rating')">ALL POKEMON</v-btn>
+    <v-btn color="amber" class="font-weight-bold" @click="changeSort('ratings')">ALL POKEMON</v-btn>
     <v-layout justify-center>
-      <v-btn color="red" class="white--text" @click="changeSort('types')">TYPES</v-btn>
-      <v-btn color="green" class="white--text" @click="changeSort('gens')">GENS</v-btn>
-      <v-btn color="blue" class="white--text" @click="changeSort('colors')">COLORS</v-btn>
+      <v-btn color="red darken-3" dark @click="changeSort('types')">TYPES</v-btn>
+      <v-btn color="green darken-2" dark @click="changeSort('gens')">GENS</v-btn>
+      <v-btn color="blue darken-2" dark @click="changeSort('colors')">COLORS</v-btn>
     </v-layout>
     <v-flex class="mb-4">
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('two_stages')"
-      >TWO STAGE LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('three_stages')"
-      >THREE STAGE LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('pseudo_lines')"
-      >PSEUDO LEGENDARY LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('starter_lines')"
-      >STARTER LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('gens_by_starters')"
-      >GENS BY STARTER LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('regional_birds')"
-      >REGIONAL BIRD LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('regional_rodents')"
-      >REGIONAL RODENT LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('regional_bugs')"
-      >REGIONAL BUG LINES</v-btn>
-      <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('regional_sets_with_starters')"
-      >REGIONAL SETS</v-btn>
+      <v-btn color="black" dark @click="changeSort('two_stages')">TWO STAGE LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('three_stages')">THREE STAGE LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('pseudo_lines')">PSEUDO LEGENDARY LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('starter_lines')">STARTER LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('gens_by_starters')">GENS BY STARTER LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('regional_birds')">REGIONAL BIRD LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('regional_rodents')">REGIONAL RODENT LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('regional_bugs')">REGIONAL BUG LINES</v-btn>
+      <v-btn color="black" dark @click="changeSort('regional_sets_with_starters')">REGIONAL SETS</v-btn>
       <br />
       <v-btn
-        color="grey darken-2"
-        class="white--text"
-        @click="changeSort('rating', { starter: true, stage: '1' })"
+        color="black"
+        dark
+        @click="changeSort('ratings', { starter: true, stage: '1' })"
       >FIRST FORM STARTERS</v-btn>
     </v-flex>
     <v-layout justify-center>
       <v-flex xs6>
-        <v-card v-if="sortBy === 'rating'">
-          <v-card-text v-for="mon in sortedPokemon" :key="mon.data.name" class="title text-xs-left">
-            <span v-if="allowed(mon.data)">
-              {{ mon.data.name }}: {{ mon.data.rating }}
-              <v-progress-linear
-                class="mb-0"
-                color="yellow"
-                height="20"
-                :value="mon.data.rating*10"
-              />
-            </span>
-          </v-card-text>
-        </v-card>
-        <v-card v-else-if="sortedArray.length === 0">
-          <v-card-text class="title text-xs-left">No results.</v-card-text>
-        </v-card>
-        <v-card v-else-if="lineSorts.includes(sortBy)">
-          <v-card-text
-            v-for="x in sortedArray"
-            :key="sortedArray.indexOf(x)"
-            class="title text-xs-left"
-          >
-            <span v-for="mon in pokemon" :key="mon.id">
-              <span v-if="mon.id === x.key">
-                {{ mon.data.name }}: {{ x.avg }}
-                <v-progress-linear class="mb-0" color="yellow" height="20" :value="x.avg*10" />
+        <v-card>
+          <span v-if="sortedArray.length === 0">
+            <v-card-text class="title text-xs-left">No results.</v-card-text>
+          </span>
+          <v-card-text v-for="x in sortedArray" :key="sortedArray.indexOf(x)" class="title">
+            <span v-if="sortBy === 'ratings'">
+              <span v-if="allowed(x.data)">
+                {{ x.data.name }}: {{ x.data.rating }}
+                <v-progress-linear :color="x.data.color" height="20" :value="x.data.rating*10" />
               </span>
             </span>
-          </v-card-text>
-        </v-card>
-        <v-card v-else>
-          <v-card-text
-            v-for="x in sortedArray"
-            :key="sortedArray.indexOf(x)"
-            class="title text-xs-left"
-          >
-            {{ x.key }}: {{ x.avg }}
-            <v-progress-linear class="mb-0" color="yellow" height="20" :value="x.avg*10" />
+            <span v-else-if="lineSorts.includes(sortBy)">
+              <span v-for="mon in pokemon" :key="mon.id">
+                <span v-if="mon.id === x.key">
+                  {{ mon.data.name }}: {{ x.avg }}
+                  <v-progress-linear :color="mon.data.color" height="20" :value="x.avg*10" />
+                </span>
+              </span>
+            </span>
+            <span v-else-if="genSorts.includes(sortBy)">
+              {{ x.key }}: {{ x.avg }}
+              <v-progress-linear
+                :color="genColors[parseInt(x.key)-1]"
+                height="20"
+                :value="x.avg*10"
+              />
+            </span>
+            <span v-else-if="typeSorts.includes(sortBy)">
+              {{ x.key }}: {{ x.avg }}
+              <v-progress-linear :color="typeColors[x.key]" height="20" :value="x.avg*10" />
+            </span>
+            <span v-else-if="sortBy === 'colors'">
+              {{ x.key }}: {{ x.avg }}
+              <v-progress-linear
+                :color="(x.key === 'gray') ? 'grey' : x.key"
+                height="20"
+                :value="x.avg*10"
+              />
+            </span>
+            <span v-else>
+              {{ x.key }}: {{ x.avg }}
+              <v-progress-linear color="yellow" height="20" :value="x.avg*10" />
+            </span>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -182,9 +151,32 @@ export default {
       regional_bugs: [],
       regional_sets: [],
       regional_sets_with_starters: [],
-      sortBy: 'rating',
+      sortBy: 'ratings',
+      onlyShow: {},
       lineSorts: ['two_stages', 'three_stages', 'pseudo_lines', 'starter_lines', 'regional_birds', 'regional_rodents', 'regional_bugs'],
-      onlyShow: {}
+      genSorts: ['gens', 'gens_by_starters', 'regional_sets_with_starters'],
+      typeSorts: ['types'],
+      genColors: ['red', 'amber', 'green', 'cyan', 'black', 'deep-purple', 'orange'],
+      typeColors: {
+        normal: 'brown lighten-4',
+        fire: 'deep-orange accent-3',
+        fighting: 'red darken-4',
+        water: 'blue darken-1',
+        flying: 'indigo lighten-3',
+        grass: 'light-green darken-2',
+        poison: 'purple darken-1',
+        electric: 'amber darken-1',
+        ground: 'orange accent-2',
+        psychic: 'pink',
+        rock: 'brown',
+        ice: 'light-blue lighten-3',
+        bug: 'light-green darken-1',
+        dragon: 'deep-purple accent-2',
+        ghost: 'deep-purple darken-4',
+        dark: 'grey darken-4',
+        steel: 'blue-grey lighten-3',
+        fairy: 'pink lighten-3'
+      }
     }
   },
   computed: {
@@ -192,7 +184,7 @@ export default {
       /* eslint-disable no-eval */
       return eval('this.' + this.sortBy)
     },
-    sortedPokemon () {
+    ratings () {
       return this.pokemon.concat().sort(ratingSort)
     }
   },
