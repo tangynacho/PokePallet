@@ -7,21 +7,19 @@
       <v-btn color="blue darken-2" dark @click="changeSort('colors')">COLORS</v-btn>
     </v-layout>
     <v-flex class="mb-4">
-      <v-btn color="black" dark @click="changeSort('two_stages')">TWO STAGE LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('three_stages')">THREE STAGE LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('pseudo_lines')">PSEUDO LEGENDARY LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('starter_lines')">STARTER LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('gens_by_starters')">GENS BY STARTER LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('regional_birds')">REGIONAL BIRD LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('regional_rodents')">REGIONAL RODENT LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('regional_bugs')">REGIONAL BUG LINES</v-btn>
-      <v-btn color="black" dark @click="changeSort('regional_sets_with_starters')">REGIONAL SETS</v-btn>
+      <v-btn dark @click="changeSort('two_stages')">TWO STAGE LINES</v-btn>
+      <v-btn dark @click="changeSort('three_stages')">THREE STAGE LINES</v-btn>
+      <v-btn dark @click="changeSort('pseudo_lines')">PSEUDO LEGENDARY LINES</v-btn>
+      <v-btn dark @click="changeSort('starter_lines')">STARTER LINES</v-btn>
+      <v-btn dark @click="changeSort('gens_by_starters')">GENS BY STARTER LINES</v-btn>
+      <v-btn dark @click="changeSort('regional_birds')">REGIONAL BIRD LINES</v-btn>
+      <v-btn dark @click="changeSort('regional_rodents')">REGIONAL RODENT LINES</v-btn>
+      <v-btn dark @click="changeSort('regional_bugs')">REGIONAL BUG LINES</v-btn>
+      <v-btn dark @click="changeSort('regional_sets_with_starters')">REGIONAL SETS</v-btn>
       <br />
-      <v-btn
-        color="black"
-        dark
-        @click="changeSort('ratings', { starter: true, stage: '1' })"
-      >FIRST FORM STARTERS</v-btn>
+      <v-btn dark @click="changeSort('ratings', { starter: true, stage: '1' })">FIRST FORM STARTERS</v-btn>
+      <v-btn dark @click="changeSort('ratings', { starter: true, stage: '2' })">MIDDLE FORM STARTERS</v-btn>
+      <v-btn dark @click="changeSort('ratings', { starter: true, stage: '3' })">FINAL FORM STARTERS</v-btn>
     </v-flex>
     <v-layout justify-center>
       <v-flex xs6>
@@ -29,7 +27,7 @@
           <span v-if="sortedArray.length === 0">
             <v-card-text class="title text-xs-left">No results.</v-card-text>
           </span>
-          <v-card-text v-for="x in sortedArray" :key="sortedArray.indexOf(x)" class="title">
+          <v-card-text v-for="x in sortedArray" :key="sortedArray.indexOf(x)" class="headline">
             <span v-if="sortBy === 'ratings'">
               <span v-if="allowed(x.data)">
                 {{ x.data.name }}: {{ x.data.rating }}
