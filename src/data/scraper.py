@@ -1,12 +1,30 @@
 from bs4 import BeautifulSoup
 import requests
+import json
+import os.path
+
+filename = 'pokemon.json'
+data = {}
+if os.path.isfile(filename):
+    with open(filename) as json_file:
+        try:
+            data = json.load(json_file)
+            print('json file loaded')
+        except:
+            print('invalid json file!')
+else:
+    print('{} does not exist'.format(filename))
+
+boolean_keys = ['mega', 'ultra', 'alolan', 'starter', 'legendary', 'mythical', 'pseudo', 'baby', 'regional_bird', 'regional_rodent', 'regional_bug', 'fossil']
 
 domain = "https://pokemondb.net"
-page_link = domain+"/pokedex/phantump"
+page_link = domain+"/pokedex/bulbasaur"
 run = True
 bulba = True
 
 while run:
+    pokemon = {}
+
     page_response = requests.get(page_link, timeout=5)
     page_content = BeautifulSoup(page_response.content, "html.parser")
 
@@ -37,13 +55,22 @@ while run:
         line = line_members[0].find("span", attrs={"class": "infocard-lg-data text-muted"}).find_all("small")[0].text[1:]
         members = len(line_members)
     
-    # print("#"+idnum)
-    print(name)
-    # print(img)
-    # print(gen)
-    # print(types)
-    # print(line)
-    # print(members)
+    pokemon["name"] = name
+    pokemon["img"] = img
+    pokemon["gen"] = gen
+    pokemon["types"] = types
+    pokemon["line"] = line
+    pokemon["members"] = members
+    for boo in boolean_keys:
+        pokemon[boo] = False
+
+    data[idnum] = pokemon
+    with open(filename, 'w') as json_out:
+        try:
+            json.dump(data, json_out, indent=4)
+            print(name)
+        except:
+            print('error saving to file')
 
     nav = main.nav
     links = nav.find_all("a")
