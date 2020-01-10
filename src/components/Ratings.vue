@@ -2,54 +2,95 @@
   <v-container fluid>
     <v-layout justify-center>
       <v-flex v-if="waited" xs6>
-        <v-card v-animate-css="'fadeInDown'">
+        <v-card color="white" v-animate-css="'fadeInDown'">
           <v-img
-            :src="require(`@/assets/images/${current.name}.png`)"
-            :max-width="w/4"
+            :src="current.img"
             class="center"
             mb-4
+            :width="w / 3"
+            :height="h / 3"
+            contain
           />
           <v-layout justify-center my-4>
-            <v-img
-              :src="require(`@/assets/images/types/${current.types[0]}Symbol.png`)"
+            <!-- <v-img
+              :src="
+                require(`@/assets/images/types/${current.types[0]}Symbol.png`)
+              "
               class="type-img mt-4 mx-4"
               v-animate-css="'fadeIn fast'"
             />
             <v-img
               v-if="current.types.length > 1"
-              :src="require(`@/assets/images/types/${current.types[1]}Symbol.png`)"
+              :src="
+                require(`@/assets/images/types/${current.types[1]}Symbol.png`)
+              "
               class="type-img mt-4 mx-4"
               v-animate-css="'fadeIn fast'"
-            />
+            /> -->
           </v-layout>
         </v-card>
-        <p
-          :class="medtext + ' mt-3'"
-          v-animate-css="'fadeInDown'"
-        >#{{currentID.replace(/\D/g,'')}} {{current.name}}</p>
+        <p :class="medtext + ' mt-3'" v-animate-css="'fadeInDown'">
+          #{{ currentID.replace(/\D/g, "") }} {{ current.name }}
+        </p>
         <div v-animate-css="'fadeInUp'">
           <v-layout v-if="mode === 'like'" justify-center>
-            <v-btn color="red" class="white--text" @click="next(3)">DISLIKE</v-btn>
-            <v-btn color="green" class="white--text" @click="next(7)">LIKE</v-btn>
+            <v-btn color="red" class="white--text" @click="next(3)"
+              >DISLIKE</v-btn
+            >
+            <v-btn color="green" class="white--text" @click="next(7)"
+              >LIKE</v-btn
+            >
           </v-layout>
           <v-layout v-if="mode === 'spec'" justify-center>
             <v-btn color="red" class="white--text" @click="next(1)">HATE</v-btn>
-            <v-btn color="purple" class="white--text" @click="next(3)">DISLIKE</v-btn>
-            <v-btn color="blue" class="white--text" @click="next(5)">NEUTRAL</v-btn>
-            <v-btn color="teal" class="white--text" @click="next(7)">LIKE</v-btn>
-            <v-btn color="green" class="white--text" @click="next(9)">LOVE</v-btn>
+            <v-btn color="purple" class="white--text" @click="next(3)"
+              >DISLIKE</v-btn
+            >
+            <v-btn color="blue" class="white--text" @click="next(5)"
+              >NEUTRAL</v-btn
+            >
+            <v-btn color="teal" class="white--text" @click="next(7)"
+              >LIKE</v-btn
+            >
+            <v-btn color="green" class="white--text" @click="next(9)"
+              >LOVE</v-btn
+            >
           </v-layout>
           <v-layout v-if="mode === 'tens'" justify-center>
-            <v-btn icon color="red" class="white--text" @click="next(1)">1</v-btn>
-            <v-btn icon color="pink" class="white--text" @click="next(2)">2</v-btn>
-            <v-btn icon color="purple" class="white--text" @click="next(3)">3</v-btn>
-            <v-btn icon color="deep-purple" class="white--text" @click="next(4)">4</v-btn>
-            <v-btn icon color="indigo" class="white--text" @click="next(5)">5</v-btn>
-            <v-btn icon color="blue" class="white--text" @click="next(6)">6</v-btn>
-            <v-btn icon color="cyan" class="white--text" @click="next(7)">7</v-btn>
-            <v-btn icon color="teal" class="white--text" @click="next(8)">8</v-btn>
-            <v-btn icon color="green darken-2" class="white--text" @click="next(9)">9</v-btn>
-            <v-btn icon color="green" class="white--text" @click="next(10)">10</v-btn>
+            <v-btn icon color="red" class="white--text" @click="next(1)"
+              >1</v-btn
+            >
+            <v-btn icon color="pink" class="white--text" @click="next(2)"
+              >2</v-btn
+            >
+            <v-btn icon color="purple" class="white--text" @click="next(3)"
+              >3</v-btn
+            >
+            <v-btn icon color="deep-purple" class="white--text" @click="next(4)"
+              >4</v-btn
+            >
+            <v-btn icon color="indigo" class="white--text" @click="next(5)"
+              >5</v-btn
+            >
+            <v-btn icon color="blue" class="white--text" @click="next(6)"
+              >6</v-btn
+            >
+            <v-btn icon color="cyan" class="white--text" @click="next(7)"
+              >7</v-btn
+            >
+            <v-btn icon color="teal" class="white--text" @click="next(8)"
+              >8</v-btn
+            >
+            <v-btn
+              icon
+              color="green darken-2"
+              class="white--text"
+              @click="next(9)"
+              >9</v-btn
+            >
+            <v-btn icon color="green" class="white--text" @click="next(10)"
+              >10</v-btn
+            >
           </v-layout>
         </div>
       </v-flex>
@@ -58,30 +99,30 @@
 </template>
 
 <script>
+/* eslint-disable */
 // loads the json file
-let pokemonJSON = require('@/data/pokemon.json')
+let pokemonJSON = require("@/data/pokemon.json");
 // turns the Object into an array of Objects
-let pokemon = Object.keys(pokemonJSON).map(function (key) {
-  return { 'id': key, 'data': pokemonJSON[key] }
-})
+let pokemon = Object.keys(pokemonJSON).map(function(key) {
+  return { id: key, data: pokemonJSON[key] };
+});
 // sorts the array by id number
-pokemon.sort(function (x, y) {
-  if (x.id < y.id) { return -1 }
-  if (x.id > y.id) { return 1 }
-  return 0
-})
+pokemon.sort(function(x, y) {
+  if (x.id < y.id) {
+    return -1;
+  }
+  if (x.id > y.id) {
+    return 1;
+  }
+  return 0;
+});
 
 export default {
-  name: 'Ratings',
-  data () {
+  name: "Ratings",
+  data() {
     return {
       // router parameters
-      mode: (this.$route.params.mode) ? this.$route.params.mode : 'tens',
-      megas: (this.$route.params.megas) ? this.$route.params.megas : false,
-      meagsGen6: (this.$route.params.megasGen6) ? this.$route.params.megasGen6 : false,
-      alolans: (this.$route.params.alolans) ? this.$route.params.alolans : false,
-      alolansGen7: (this.$route.params.alolansGen7) ? this.$route.params.alolansGen7 : false,
-      ultraLegends: (this.$route.params.ultraLegends) ? this.$route.params.ultraLegends : false,
+      mode: this.$route.params.mode ? this.$route.params.mode : "tens",
       // window info
       h: window.innerHeight,
       w: window.innerWidth,
@@ -91,91 +132,80 @@ export default {
       i: 0,
       // all pokemon
       pokemon: pokemon
-    }
+    };
   },
   computed: {
     // the pokedex number of the current pokemon
-    currentID () {
-      return this.pokemon[this.i].id
+    currentID() {
+      return this.pokemon[this.i].id;
     },
     // the current pokemon
-    current () {
-      return this.pokemon[this.i].data
+    current() {
+      return this.pokemon[this.i].data;
     },
     // determine font size
-    bigtext () {
+    bigtext() {
       return this.h < 720
-        ? 'display-1'
+        ? "display-1"
         : this.h > 1080
-          ? 'display-3'
-          : 'display-2'
+        ? "display-3"
+        : "display-2";
     },
-    medtext () {
+    medtext() {
       return this.h < 720
-        ? 'headline'
+        ? "headline"
         : this.h > 1080
-          ? 'display-2'
-          : 'display-1'
+        ? "display-2"
+        : "display-1";
     },
-    liltext () {
-      return this.h < 720 ? 'title' : this.h > 1080 ? 'display-1' : 'headline'
+    liltext() {
+      return this.h < 720 ? "title" : this.h > 1080 ? "display-1" : "headline";
     }
   },
   methods: {
     // assign the chosen rating to the current pokemon and move to the next one
-    next (r) {
+    next(r) {
       // set the rating
-      this.current.rating = r
+      this.current.rating = r;
       // if not at the end
-      if ((this.i + 1) < this.pokemon.length) {
+      if (this.i + 1 < this.pokemon.length) {
         // move forward 1
-        this.i++
+        this.i++;
       } else {
         // otherwise, route to Pallet
-        this.$router.push({ name: 'Pallet', params: { mode: this.mode, pokemon: this.pokemon, megas: this.megas, megasGen6: this.megasGen6, alolans: this.alolans, alolansGen7: this.alolansGen7, ultraLegends: this.ultraLegends } })
-      }
-
-      // flag checks
-
-      // if mega or alolan and the user has chosen not to include them
-      while ((this.current.mega && !this.megas) || (this.current.alolan && !this.alolans)) {
-        // skip forward 1
-        this.i++
-      }
-      // if mega and user has chosen to consider all megas gen 6
-      if (this.current.mega && this.megasGen6) {
-        // set gen to 6
-        this.current.gen = 6
-      }
-      // if alolan and user has chosen to consider all alolans gen 7
-      if (this.current.alolan && this.alolansGen7) {
-        this.current.gen = 7
-      }
-      // if ultra and user has chosen to consider all utras legendary
-      if (this.current.ultra && this.ultraLegends) {
-        this.current.legendary = true
+        this.$router.push({
+          name: "Pallet",
+          params: {
+            mode: this.mode,
+            pokemon: this.pokemon
+          }
+        });
       }
     },
-    wait () {
-      this.waited = true
+    wait() {
+      this.waited = true;
     }
   },
-  beforeMount () {
-    window.setTimeout(() => { this.wait() }, 400)
+  beforeMount() {
+    window.setTimeout(() => {
+      this.wait();
+    }, 400);
   },
-  beforeRouteLeave (to, from, next) {
-    if (to.name !== 'Pallet') {
-      const answer = window.confirm('If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?')
+  beforeRouteLeave(to, from, next) {
+    if (to.name !== "Pallet") {
+      const answer = window.confirm(
+        "If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?"
+      );
       if (answer) {
-        next()
+        next();
       } else {
-        next(false)
+        next(false);
       }
     } else {
-      next()
+      next();
     }
   }
-}
+};
 </script>
 
 <style scoped>
