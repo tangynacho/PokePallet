@@ -167,7 +167,7 @@ export default {
       // set the rating
       this.current.rating = r;
       // if not at the end
-      if (this.i + 1 < this.pokemon.length) {
+      if (this.i + 1 < this.pokemon.length && this.i < 10) {
         // move forward 1
         this.i++;
       } else {

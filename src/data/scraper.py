@@ -60,6 +60,7 @@ while run:
     pokemon["gen"] = gen
     pokemon["types"] = types
     pokemon["line"] = line
+    pokemon["rating"] = 0
     for boo in boolean_keys:
         pokemon[boo] = False
 
