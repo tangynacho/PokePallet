@@ -1,18 +1,17 @@
 <template>
   <v-container fluid>
     <v-layout justify-center>
-      <v-flex v-if="waited" xs6>
+      <v-flex v-if="waited" xs4>
         <v-card color="white" v-animate-css="'fadeInDown'">
           <v-img
             :src="current.img"
-            class="center"
-            mb-4
+            class="center mt-2 mb-4"
             :width="w / 3"
             :height="h / 3"
             contain
           />
-          <v-layout justify-center my-4>
-            <!-- <v-img
+          <!-- <v-layout justify-center my-4>
+            <v-img
               :src="
                 require(`@/assets/images/types/${current.types[0]}Symbol.png`)
               "
@@ -26,8 +25,8 @@
               "
               class="type-img mt-4 mx-4"
               v-animate-css="'fadeIn fast'"
-            /> -->
-          </v-layout>
+            />
+          </v-layout> -->
         </v-card>
         <p :class="medtext + ' mt-3'" v-animate-css="'fadeInDown'">
           #{{ currentID.replace(/\D/g, "") }} {{ current.name }}

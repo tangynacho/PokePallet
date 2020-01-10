@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout justify-center>
       <v-flex xs12 xl6>
-        <p :class="bigtext">Welcome to PokePallet!</p>
+        <p :class="bigtext">Welcome to PokePallet! (Alpha)</p>
         <ul :class="`${liltext} text-xs-left`">
           <li>
             You'll be presented with all 890 pokemon, one at a time, giving each
