@@ -49,18 +49,17 @@ while run:
     idnum = table[0].td.strong.text
     types = [x.text for x in table[1].td.find_all("a")]
 
+    line = idnum
     evo_info = main.find("div", attrs={"class": "infocard-list-evo"})
     if evo_info:
         line_members = evo_info.find_all("div", attrs={"class": "infocard"})
         line = line_members[0].find("span", attrs={"class": "infocard-lg-data text-muted"}).find_all("small")[0].text[1:]
-        members = len(line_members)
     
     pokemon["name"] = name
     pokemon["img"] = img
     pokemon["gen"] = gen
     pokemon["types"] = types
     pokemon["line"] = line
-    pokemon["members"] = members
     for boo in boolean_keys:
         pokemon[boo] = False
 
@@ -81,3 +80,5 @@ while run:
         bulba = False
     else:
         run = False
+    
+    # run = False
