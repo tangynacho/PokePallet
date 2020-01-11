@@ -13,17 +13,18 @@
             stats about your preference in pokemon.
           </li>
           <li>
-            If you don't have time to rate every pokemon in one sitting, you can
-            save your progress and finish later. Use the buttons in the top left
-            for this.
-          </li>
-          <li>
             At the end, you'll be able to download your very own PokePallet with
             all your stats to share and compare with friends!
           </li>
           <li>
             Currently, Megas and Regional Variants are not supported :/ But they
             are coming soon!
+          </li>
+          <li>
+            The buttons at the top will be used to save/load your PokePallet so
+            that you don't have to rate all the pokemon at once. This
+            functionality is coming soon. As of now, you'll have to do it all
+            without leaving the page.
           </li>
         </ul>
         <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">

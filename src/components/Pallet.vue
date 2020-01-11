@@ -96,7 +96,7 @@
               </span>
             </span>
             <span v-else-if="genSorts.includes(sortBy)">
-              {{ x.key }}: {{ x.avg }}
+              Gen {{ x.key }}: {{ x.avg }}
               <v-progress-linear
                 :color="genColors[parseInt(x.key) - 1]"
                 height="20"
