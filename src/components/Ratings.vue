@@ -26,70 +26,35 @@
               class="type-img mt-4 mx-4"
               v-animate-css="'fadeIn fast'"
             />
-          </v-layout> -->
+          </v-layout>-->
         </v-card>
-        <p :class="medtext + ' mt-3'" v-animate-css="'fadeInDown'">
-          #{{ currentID.replace(/\D/g, "") }} {{ current.name }}
-        </p>
+        <p
+          :class="medtext + ' mt-3'"
+          v-animate-css="'fadeInDown'"
+        >#{{ currentID.replace(/\D/g, "") }} {{ current.name }}</p>
         <div v-animate-css="'fadeInUp'">
           <v-layout v-if="mode === 'like'" justify-center>
-            <v-btn color="red" class="white--text" @click="next(3)"
-              >DISLIKE</v-btn
-            >
-            <v-btn color="green" class="white--text" @click="next(7)"
-              >LIKE</v-btn
-            >
+            <v-btn color="red" class="white--text" @click="next(3)">DISLIKE</v-btn>
+            <v-btn color="green" class="white--text" @click="next(7)">LIKE</v-btn>
           </v-layout>
           <v-layout v-if="mode === 'spec'" justify-center>
             <v-btn color="red" class="white--text" @click="next(1)">HATE</v-btn>
-            <v-btn color="purple" class="white--text" @click="next(3)"
-              >DISLIKE</v-btn
-            >
-            <v-btn color="blue" class="white--text" @click="next(5)"
-              >NEUTRAL</v-btn
-            >
-            <v-btn color="teal" class="white--text" @click="next(7)"
-              >LIKE</v-btn
-            >
-            <v-btn color="green" class="white--text" @click="next(9)"
-              >LOVE</v-btn
-            >
+            <v-btn color="purple" class="white--text" @click="next(3)">DISLIKE</v-btn>
+            <v-btn color="blue" class="white--text" @click="next(5)">NEUTRAL</v-btn>
+            <v-btn color="teal" class="white--text" @click="next(7)">LIKE</v-btn>
+            <v-btn color="green" class="white--text" @click="next(9)">LOVE</v-btn>
           </v-layout>
           <v-layout v-if="mode === 'tens'" justify-center>
-            <v-btn icon color="red" class="white--text" @click="next(1)"
-              >1</v-btn
-            >
-            <v-btn icon color="pink" class="white--text" @click="next(2)"
-              >2</v-btn
-            >
-            <v-btn icon color="purple" class="white--text" @click="next(3)"
-              >3</v-btn
-            >
-            <v-btn icon color="deep-purple" class="white--text" @click="next(4)"
-              >4</v-btn
-            >
-            <v-btn icon color="indigo" class="white--text" @click="next(5)"
-              >5</v-btn
-            >
-            <v-btn icon color="blue" class="white--text" @click="next(6)"
-              >6</v-btn
-            >
-            <v-btn icon color="cyan" class="white--text" @click="next(7)"
-              >7</v-btn
-            >
-            <v-btn icon color="teal" class="white--text" @click="next(8)"
-              >8</v-btn
-            >
-            <v-btn
-              icon
-              color="green darken-2"
-              class="white--text"
-              @click="next(9)"
-              >9</v-btn
-            >
-            <v-btn icon color="green" class="white--text" @click="next(10)"
-              >10</v-btn
-            >
+            <v-btn icon color="red" class="white--text" @click="next(1)">1</v-btn>
+            <v-btn icon color="pink" class="white--text" @click="next(2)">2</v-btn>
+            <v-btn icon color="purple" class="white--text" @click="next(3)">3</v-btn>
+            <v-btn icon color="deep-purple" class="white--text" @click="next(4)">4</v-btn>
+            <v-btn icon color="indigo" class="white--text" @click="next(5)">5</v-btn>
+            <v-btn icon color="blue" class="white--text" @click="next(6)">6</v-btn>
+            <v-btn icon color="cyan" class="white--text" @click="next(7)">7</v-btn>
+            <v-btn icon color="teal" class="white--text" @click="next(8)">8</v-btn>
+            <v-btn icon color="green darken-2" class="white--text" @click="next(9)">9</v-btn>
+            <v-btn icon color="green" class="white--text" @click="next(10)">10</v-btn>
           </v-layout>
         </div>
       </v-flex>
@@ -102,11 +67,11 @@
 // loads the json file
 let pokemonJSON = require("@/data/pokemon.json");
 // turns the Object into an array of Objects
-let pokemon = Object.keys(pokemonJSON).map(function(key) {
+let pokemon = Object.keys(pokemonJSON).map(function (key) {
   return { id: key, data: pokemonJSON[key] };
 });
 // sorts the array by id number
-pokemon.sort(function(x, y) {
+pokemon.sort(function (x, y) {
   if (x.id < y.id) {
     return -1;
   }
@@ -118,7 +83,7 @@ pokemon.sort(function(x, y) {
 
 export default {
   name: "Ratings",
-  data() {
+  data () {
     return {
       // router parameters
       mode: this.$route.params.mode ? this.$route.params.mode : "tens",
@@ -128,42 +93,42 @@ export default {
       // variable for mount stalling
       waited: false,
       // current index
-      i: 0,
+      i: 880,
       // all pokemon
       pokemon: pokemon
     };
   },
   computed: {
     // the pokedex number of the current pokemon
-    currentID() {
+    currentID () {
       return this.pokemon[this.i].id;
     },
     // the current pokemon
-    current() {
+    current () {
       return this.pokemon[this.i].data;
     },
     // determine font size
-    bigtext() {
+    bigtext () {
       return this.h < 720
         ? "display-1"
         : this.h > 1080
-        ? "display-3"
-        : "display-2";
+          ? "display-3"
+          : "display-2";
     },
-    medtext() {
+    medtext () {
       return this.h < 720
         ? "headline"
         : this.h > 1080
-        ? "display-2"
-        : "display-1";
+          ? "display-2"
+          : "display-1";
     },
-    liltext() {
+    liltext () {
       return this.h < 720 ? "title" : this.h > 1080 ? "display-1" : "headline";
     }
   },
   methods: {
     // assign the chosen rating to the current pokemon and move to the next one
-    next(r) {
+    next (r) {
       // set the rating
       this.current.rating = r;
       // if not at the end
@@ -181,16 +146,16 @@ export default {
         });
       }
     },
-    wait() {
+    wait () {
       this.waited = true;
     }
   },
-  beforeMount() {
+  beforeMount () {
     window.setTimeout(() => {
       this.wait();
     }, 400);
   },
-  beforeRouteLeave(to, from, next) {
+  beforeRouteLeave (to, from, next) {
     if (to.name !== "Pallet") {
       const answer = window.confirm(
         "If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?"

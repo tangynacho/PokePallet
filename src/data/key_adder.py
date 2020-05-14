@@ -13,9 +13,9 @@ if os.path.isfile(filename):
 else:
     print('{} does not exist'.format(filename))
 
-# change this based on the desired key to add
 for d in data:
-    data[d]["rating"]= 0
+    # change this based on the desired key to add
+    data[d]["rating"] = 0
 
 with open(filename, 'w') as json_out:
             try:

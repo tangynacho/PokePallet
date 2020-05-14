@@ -18402,7 +18402,7 @@
     },
     "819": {
         "name": "Skwovet",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-skwovet.png",
+        "img": "https://img.pokemondb.net/artwork/large/skwovet.jpg",
         "gen": 8,
         "types": [
             "Normal"
@@ -18424,7 +18424,7 @@
     },
     "820": {
         "name": "Greedent",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-greedent.png",
+        "img": "https://img.pokemondb.net/artwork/large/greedent.jpg",
         "gen": 8,
         "types": [
             "Normal"
@@ -18446,7 +18446,7 @@
     },
     "821": {
         "name": "Rookidee",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-rookidee.png",
+        "img": "https://img.pokemondb.net/artwork/large/rookidee.jpg",
         "gen": 8,
         "types": [
             "Flying"
@@ -18468,7 +18468,7 @@
     },
     "822": {
         "name": "Corvisquire",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-corvisquire.png",
+        "img": "https://img.pokemondb.net/artwork/large/corvisquire.jpg",
         "gen": 8,
         "types": [
             "Flying"
@@ -18513,7 +18513,7 @@
     },
     "824": {
         "name": "Blipbug",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-blipbug.png",
+        "img": "https://img.pokemondb.net/artwork/large/blipbug.jpg",
         "gen": 8,
         "types": [
             "Bug"
@@ -18535,7 +18535,7 @@
     },
     "825": {
         "name": "Dottler",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dottler.png",
+        "img": "https://img.pokemondb.net/artwork/large/dottler.jpg",
         "gen": 8,
         "types": [
             "Bug",
@@ -18558,7 +18558,7 @@
     },
     "826": {
         "name": "Orbeetle",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-orbeetle.png",
+        "img": "https://img.pokemondb.net/artwork/large/orbeetle.jpg",
         "gen": 8,
         "types": [
             "Bug",
@@ -18581,7 +18581,7 @@
     },
     "827": {
         "name": "Nickit",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-nickit.png",
+        "img": "https://img.pokemondb.net/artwork/large/nickit.jpg",
         "gen": 8,
         "types": [
             "Dark"
@@ -18603,7 +18603,7 @@
     },
     "828": {
         "name": "Thievul",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-thievul.png",
+        "img": "https://img.pokemondb.net/artwork/large/thievul.jpg",
         "gen": 8,
         "types": [
             "Dark"
@@ -18691,7 +18691,7 @@
     },
     "832": {
         "name": "Dubwool",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dubwool.png",
+        "img": "https://img.pokemondb.net/artwork/large/dubwool.jpg",
         "gen": 8,
         "types": [
             "Normal"
@@ -18713,7 +18713,7 @@
     },
     "833": {
         "name": "Chewtle",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-chewtle.png",
+        "img": "https://img.pokemondb.net/artwork/large/chewtle.jpg",
         "gen": 8,
         "types": [
             "Water"
@@ -18780,7 +18780,7 @@
     },
     "836": {
         "name": "Boltund",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-boltund.png",
+        "img": "https://img.pokemondb.net/artwork/large/boltund.jpg",
         "gen": 8,
         "types": [
             "Electric"
@@ -18824,7 +18824,7 @@
     },
     "838": {
         "name": "Carkol",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-carkol.png",
+        "img": "https://img.pokemondb.net/artwork/large/carkol.jpg",
         "gen": 8,
         "types": [
             "Rock",
@@ -18847,7 +18847,7 @@
     },
     "839": {
         "name": "Coalossal",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-coalossal.png",
+        "img": "https://img.pokemondb.net/artwork/large/coalossal.jpg",
         "gen": 8,
         "types": [
             "Rock",
@@ -18870,7 +18870,7 @@
     },
     "840": {
         "name": "Applin",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-applin.png",
+        "img": "https://img.pokemondb.net/artwork/large/applin.jpg",
         "gen": 8,
         "types": [
             "Grass",
@@ -18893,7 +18893,7 @@
     },
     "841": {
         "name": "Flapple",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-flapple.png",
+        "img": "https://img.pokemondb.net/artwork/large/flapple.jpg",
         "gen": 8,
         "types": [
             "Grass",
@@ -18916,7 +18916,7 @@
     },
     "842": {
         "name": "Appletun",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-appletun.png",
+        "img": "https://img.pokemondb.net/artwork/large/appletun.jpg",
         "gen": 8,
         "types": [
             "Grass",
@@ -18939,7 +18939,7 @@
     },
     "843": {
         "name": "Silicobra",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-silicobra.png",
+        "img": "https://img.pokemondb.net/artwork/large/silicobra.jpg",
         "gen": 8,
         "types": [
             "Ground"
@@ -19006,7 +19006,7 @@
     },
     "846": {
         "name": "Arrokuda",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-arrokuda.png",
+        "img": "https://img.pokemondb.net/artwork/large/arrokuda.jpg",
         "gen": 8,
         "types": [
             "Water"
@@ -19028,7 +19028,7 @@
     },
     "847": {
         "name": "Barraskewda",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-barraskewda.png",
+        "img": "https://img.pokemondb.net/artwork/large/barraskewda.jpg",
         "gen": 8,
         "types": [
             "Water"
@@ -19050,7 +19050,7 @@
     },
     "848": {
         "name": "Toxel",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-toxel.png",
+        "img": "https://img.pokemondb.net/artwork/large/toxel.jpg",
         "gen": 8,
         "types": [
             "Electric",
@@ -19073,7 +19073,7 @@
     },
     "849": {
         "name": "Toxtricity",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-toxtricity-low-key.png",
+        "img": "https://img.pokemondb.net/artwork/large/toxtricity.jpg",
         "gen": 8,
         "types": [
             "Electric",
@@ -19096,7 +19096,7 @@
     },
     "850": {
         "name": "Sizzlipede",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-sizzlipede.png",
+        "img": "https://img.pokemondb.net/artwork/large/sizzlipede.jpg",
         "gen": 8,
         "types": [
             "Fire",
@@ -19142,7 +19142,7 @@
     },
     "852": {
         "name": "Clobbopus",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-clobbopus.png",
+        "img": "https://img.pokemondb.net/artwork/large/clobbopus.jpg",
         "gen": 8,
         "types": [
             "Fighting"
@@ -19164,7 +19164,7 @@
     },
     "853": {
         "name": "Grapploct",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-grapploct.png",
+        "img": "https://img.pokemondb.net/artwork/large/grapploct.jpg",
         "gen": 8,
         "types": [
             "Fighting"
@@ -19186,7 +19186,7 @@
     },
     "854": {
         "name": "Sinistea",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-sinistea.png",
+        "img": "https://img.pokemondb.net/artwork/large/sinistea.jpg",
         "gen": 8,
         "types": [
             "Ghost"
@@ -19230,7 +19230,7 @@
     },
     "856": {
         "name": "Hatenna",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-hatenna.png",
+        "img": "https://img.pokemondb.net/artwork/large/hatenna.jpg",
         "gen": 8,
         "types": [
             "Psychic"
@@ -19252,7 +19252,7 @@
     },
     "857": {
         "name": "Hattrem",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-hattrem.png",
+        "img": "https://img.pokemondb.net/artwork/large/hattrem.jpg",
         "gen": 8,
         "types": [
             "Psychic"
@@ -19274,7 +19274,7 @@
     },
     "858": {
         "name": "Hatterene",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-hatterene.png",
+        "img": "https://img.pokemondb.net/artwork/large/hatterene.jpg",
         "gen": 8,
         "types": [
             "Psychic",
@@ -19297,7 +19297,7 @@
     },
     "859": {
         "name": "Impidimp",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-impidimp.png",
+        "img": "https://img.pokemondb.net/artwork/large/impidimp.jpg",
         "gen": 8,
         "types": [
             "Dark",
@@ -19320,7 +19320,7 @@
     },
     "860": {
         "name": "Morgrem",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-morgrem.png",
+        "img": "https://img.pokemondb.net/artwork/large/morgrem.jpg",
         "gen": 8,
         "types": [
             "Dark",
@@ -19343,7 +19343,7 @@
     },
     "861": {
         "name": "Grimmsnarl",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-grimmsnarl.png",
+        "img": "https://img.pokemondb.net/artwork/large/grimmsnarl.jpg",
         "gen": 8,
         "types": [
             "Dark",
@@ -19389,7 +19389,7 @@
     },
     "863": {
         "name": "Perrserker",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-perrserker.png",
+        "img": "https://img.pokemondb.net/artwork/large/perrserker.jpg",
         "gen": 8,
         "types": [
             "Steel"
@@ -19455,7 +19455,7 @@
     },
     "866": {
         "name": "Mr. Rime",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-mr-rime.png",
+        "img": "https://img.pokemondb.net/artwork/large/mr. rime.jpg",
         "gen": 8,
         "types": [
             "Psychic",
@@ -19478,7 +19478,7 @@
     },
     "867": {
         "name": "Runerigus",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-runerigus.png",
+        "img": "https://img.pokemondb.net/artwork/large/runerigus.jpg",
         "gen": 8,
         "types": [
             "Ground",
@@ -19501,7 +19501,7 @@
     },
     "868": {
         "name": "Milcery",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-milcery.png",
+        "img": "https://img.pokemondb.net/artwork/large/milcery.jpg",
         "gen": 8,
         "types": [
             "Fairy"
@@ -19545,7 +19545,7 @@
     },
     "870": {
         "name": "Falinks",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-falinks.png",
+        "img": "https://img.pokemondb.net/artwork/large/falinks.jpg",
         "gen": 8,
         "types": [
             "Fighting"
@@ -19567,7 +19567,7 @@
     },
     "871": {
         "name": "Pincurchin",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-pincurchin.png",
+        "img": "https://img.pokemondb.net/artwork/large/pincurchin.jpg",
         "gen": 8,
         "types": [
             "Electric"
@@ -19589,7 +19589,7 @@
     },
     "872": {
         "name": "Snom",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-snom.png",
+        "img": "https://img.pokemondb.net/artwork/large/snom.jpg",
         "gen": 8,
         "types": [
             "Ice",
@@ -19612,7 +19612,7 @@
     },
     "873": {
         "name": "Frosmoth",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-frosmoth.png",
+        "img": "https://img.pokemondb.net/artwork/large/frosmoth.jpg",
         "gen": 8,
         "types": [
             "Ice",
@@ -19679,7 +19679,7 @@
     },
     "876": {
         "name": "Indeedee",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-indeedee-male.png",
+        "img": "https://img.pokemondb.net/artwork/large/indeedee.jpg",
         "gen": 8,
         "types": [
             "Psychic",
@@ -19725,7 +19725,7 @@
     },
     "878": {
         "name": "Cufant",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-cufant.png",
+        "img": "https://img.pokemondb.net/artwork/large/cufant.jpg",
         "gen": 8,
         "types": [
             "Steel"
@@ -19747,7 +19747,7 @@
     },
     "879": {
         "name": "Copperajah",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-copperajah.png",
+        "img": "https://img.pokemondb.net/artwork/large/copperajah.jpg",
         "gen": 8,
         "types": [
             "Steel"
@@ -19769,7 +19769,7 @@
     },
     "880": {
         "name": "Dracozolt",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dracozolt.png",
+        "img": "https://img.pokemondb.net/artwork/large/dracozolt.jpg",
         "gen": 8,
         "types": [
             "Electric",
@@ -19792,7 +19792,7 @@
     },
     "881": {
         "name": "Arctozolt",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-arctozolt.png",
+        "img": "https://img.pokemondb.net/artwork/large/arctozolt.jpg",
         "gen": 8,
         "types": [
             "Electric",
@@ -19815,7 +19815,7 @@
     },
     "882": {
         "name": "Dracovish",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dracovish.png",
+        "img": "https://img.pokemondb.net/artwork/large/dracovish.jpg",
         "gen": 8,
         "types": [
             "Water",
@@ -19838,7 +19838,7 @@
     },
     "883": {
         "name": "Arctovish",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-arctovish.png",
+        "img": "https://img.pokemondb.net/artwork/large/arctovish.jpg",
         "gen": 8,
         "types": [
             "Water",
@@ -19884,7 +19884,7 @@
     },
     "885": {
         "name": "Dreepy",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dreepy.png",
+        "img": "https://img.pokemondb.net/artwork/large/dreepy.jpg",
         "gen": 8,
         "types": [
             "Dragon",
@@ -19907,7 +19907,7 @@
     },
     "886": {
         "name": "Drakloak",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-drakloak.png",
+        "img": "https://img.pokemondb.net/artwork/large/drakloak.jpg",
         "gen": 8,
         "types": [
             "Dragon",
@@ -19930,7 +19930,7 @@
     },
     "887": {
         "name": "Dragapult",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-dragapult.png",
+        "img": "https://img.pokemondb.net/artwork/large/dragapult.jpg",
         "gen": 8,
         "types": [
             "Dragon",
@@ -19999,7 +19999,7 @@
     },
     "890": {
         "name": "Eternatus",
-        "img": "https://img.pokemondb.net/artwork/tmp/icon-eternatus.png",
+        "img": "https://img.pokemondb.net/artwork/large/eternatus.jpg",
         "gen": 8,
         "types": [
             "Poison",
