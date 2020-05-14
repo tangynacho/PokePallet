@@ -1,23 +1,39 @@
 <template>
   <div class="colored">
     <p class="title text-xs-left ml-2">
-      <v-btn icon title="Home" @click="$router.push({ name: 'Home'})">
-        <v-icon color="white">mdi-home</v-icon>
+      <v-btn
+        color="red"
+        class="white--text font-weight-bold mode-btn"
+        title="Home"
+        @click="$router.push({ name: 'Home' })"
+      >
+        HOME
       </v-btn>
-      <v-btn icon title="Save your PokePallet">
-        <v-icon color="white">mdi-floppy</v-icon>
+      <v-btn
+        disabled
+        color="green"
+        class="white--text font-weight-bold mode-btn"
+        title="Save your PokePallet"
+      >
+        SAVE
       </v-btn>
-      <v-btn icon title="Load your PokePallet">
-        <v-icon color="white">mdi-upload</v-icon>
+      <v-btn
+        disabled
+        color="blue"
+        class="white--text font-weight-bold mode-btn"
+        title="Load your PokePallet"
+      >
+        LOAD
       </v-btn>
     </p>
   </div>
 </template>
 
 <script>
+/* eslint-disable */
 export default {
-  name: 'Topbar'
-}
+  name: "Topbar"
+};
 </script>
 
 <style scoped>
