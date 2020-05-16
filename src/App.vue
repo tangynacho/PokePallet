@@ -1,18 +1,19 @@
 <template class="container">
   <div id="app">
-    <topbar/>
-    <router-view/>
+    <topbar />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Topbar from '@/components/Topbar.vue'
+/* eslint-disable */
+import Topbar from "@/components/Topbar.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Topbar
   }
-}
+};
 </script>
 
 <style>

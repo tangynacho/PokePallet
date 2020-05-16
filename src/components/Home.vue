@@ -63,6 +63,9 @@
 
 <script>
 /* eslint-disable */
+
+let pokemonJSON = require("@/data/pokemon.json");
+
 export default {
   name: "Home",
   data() {
@@ -115,5 +118,21 @@ export default {
 .my-box {
   height: 16px;
   width: 16px;
+}
+.colored {
+  background-color: #555555;
+}
+.inputfile {
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  cursor: pointer;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-right: 30px;
 }
 </style>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.2",
+    "browserify-fs": "^1.0.0",
     "mdi": "^2.2.43",
     "uninstall": "0.0.0",
     "v-animate-css": "0.0.3",
