@@ -7,7 +7,7 @@
           v-for="t in ts"
           :key="t"
           dark
-          @click="changeSort('ratings', { types: t })"
+          @click="changeSort('ratings', { types: t }, t + ' Type Pokemon')"
           >{{ t }} TYPES</v-btn
         >
       </v-flex>
@@ -20,10 +20,16 @@
             >ALL POKEMON
           </v-btn>
           <v-layout justify-center mb-2>
-            <v-btn color="red darken-3" dark @click="changeSort('types')"
+            <v-btn
+              color="red darken-3"
+              dark
+              @click="changeSort('types', {}, 'Types')"
               >TYPES</v-btn
             >
-            <v-btn color="blue darken-2" dark @click="changeSort('gens')"
+            <v-btn
+              color="blue darken-2"
+              dark
+              @click="changeSort('gens', {}, 'Gens')"
               >GENS</v-btn
             >
           </v-layout>
@@ -33,35 +39,54 @@
           v-for="g in gs"
           :key="g"
           dark
-          @click="changeSort('ratings', { gen: g })"
+          @click="changeSort('ratings', { gen: g }, 'Gen ' + g + ' Pokemon')"
           >GEN {{ g }}</v-btn
         >
       </v-flex>
       <v-flex xs4 id="col1" class="mb-4">
         <div>
           <p class="display-1 my-2">Aggregated Rankings</p>
-          <v-btn dark @click="changeSort('pseudo_lines')"
+          <v-btn
+            dark
+            @click="changeSort('pseudo_lines', {}, 'Pseudo Legendary Lines')"
             >PSEUDO LEGENDARY LINES</v-btn
           >
           <v-btn dark @click="changeSort('starter_lines')">STARTER LINES</v-btn>
-          <v-btn dark @click="changeSort('gens_by_starters')"
+          <v-btn
+            dark
+            @click="changeSort('gens_by_starters', {}, 'Gens By Starter Lines')"
             >GENS BY STARTER LINES</v-btn
           >
-          <v-btn dark @click="changeSort('regional_birds')"
+          <v-btn
+            dark
+            @click="changeSort('regional_birds', {}, 'Regional Bird Lines')"
             >REGIONAL BIRD LINES</v-btn
           >
-          <v-btn dark @click="changeSort('regional_rodents')"
+          <v-btn
+            dark
+            @click="changeSort('regional_rodents', {}, 'Regional Rodent Lines')"
             >REGIONAL RODENT LINES</v-btn
           >
-          <v-btn dark @click="changeSort('regional_bugs')"
+          <v-btn
+            dark
+            @click="changeSort('regional_bugs', {}, 'Regional Bug Lines')"
             >REGIONAL BUG LINES</v-btn
           >
-          <v-btn dark @click="changeSort('regional_sets_with_starters')"
+          <v-btn
+            dark
+            @click="
+              changeSort(
+                'regional_sets_with_starters',
+                {},
+                'Regional Sets (Starters, Birds, Rodents and Bugs)'
+              )
+            "
             >REGIONAL SETS</v-btn
           >
         </div>
       </v-flex>
     </v-layout>
+    <p class="display-3">{{ title }}</p>
     <v-layout justify-center>
       <v-flex xs6>
         <v-card color="grey darken-3">
@@ -276,6 +301,7 @@ export default {
       pokemon: this.$route.params.pokemon,
       sortBy: "ratings",
       onlyShow: {},
+      title: "All Pokemon",
       idToChange: "None",
       gs: [1, 2, 3, 4, 5, 6, 7, 8],
       ts: [
@@ -498,9 +524,10 @@ export default {
         this.regional_sets_with_starters
       ).sort(avgSort);
     },
-    changeSort(s = "ratings", o = {}) {
+    changeSort(s = "ratings", o = {}, t = " All Pokemon") {
       this.sortBy = s;
       this.onlyShow = o;
+      this.title = t;
       this.idToChange = "None";
     },
     allowed(mon) {
