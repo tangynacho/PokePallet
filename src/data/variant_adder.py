@@ -16,8 +16,8 @@ else:
 boolean_keys = ['mega', 'ultra', 'starter', 'legendary', 'mythical', 'pseudo', 'baby', 'regional_bird', 'regional_rodent', 'regional_bug', 'fossil']
 types = ["Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"]
 
-pid = ""
 while True:
+    pid = ""
     while not pid in data.keys() and not pid == "n":
         pid = input("Enter the ID of the regional form you wish to add (n to quit): ")
 
@@ -72,4 +72,6 @@ while True:
                 print('saved')
             except:
                 print('error saving to file')
+    else:
+        break
 print("bye now")

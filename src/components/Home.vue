@@ -6,11 +6,8 @@
         <ul :class="`${liltext} text-xs-left`">
           <li>
             You'll be presented with all {{ pokemon.length }} pokemon, one at a
-            time, giving each one a rating from 1 to 10.
-          </li>
-          <li>
-            Currently, Regional Variants are not supported :/ But they are
-            coming soon!
+            time, giving each one a rating from 1 to 10. This number includes
+            all Regional Variant forms.
           </li>
           <li>
             If you don't have time to rate them all at once, use the Save button
@@ -28,14 +25,14 @@
             for sharing and comparing with friends!
           </li>
         </ul>
-        <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">
+        <v-card min-height="33%" class="mt-4 pt-3" v-animate-css="'fadeInUp'">
           <p :class="medtext">Click the button when you're ready to begin.</p>
-          <p class="text-xs-center`">
+          <p class="text-xs-center">
             <v-btn
-              min-height="100%"
+              round
               large
               color="red darken-2"
-              :class="`${liltext} white--text font-weight-bold`"
+              :class="`${liltext} white--text font-weight-bold bigger`"
               @click="start()"
               >LET'S GO!
             </v-btn>
@@ -111,4 +108,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bigger {
+  min-height: 75px;
+}
+</style>
