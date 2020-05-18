@@ -74,21 +74,12 @@
             class="headline my-0 py-0 text-xs-left"
           >
             <v-card v-if="sortBy === 'ratings'" class="mx-0 my-0 px-0 py-0">
-              <v-layout py-1 my-1 v-if="allowed(x.data)">
+              <v-layout v-if="allowed(x.data)">
                 <v-flex xs3 class="center" align="center">
                   {{ x.data.name }}
                 </v-flex>
-
-                <!-- <buttons
-                  :rating="x.data.rating"
-                  :color="typeColors[x.data.types[0]]"
-                  :id="x.id"
-                  @i="setIDToChange"
-                  @n="changeRating"
-                /> -->
                 <v-flex v-if="idToChange != x.id" xs6>
                   <v-progress-linear
-                    align="top"
                     height="20"
                     :color="typeColors[x.data.types[0]]"
                     :value="x.data.rating * 10"
@@ -102,7 +93,7 @@
                 >
                   {{ x.data.rating }}
                 </v-flex>
-                <v-flex v-if="idToChange != x.id" xs2>
+                <v-flex v-if="idToChange != x.id" xs2 class="text-xs-center">
                   <v-btn
                     color="red darken-2"
                     class="white--text"
@@ -121,41 +112,97 @@
                 </v-flex>
               </v-layout>
             </v-card>
-            <v-card v-else-if="lineSorts.includes(sortBy)">
+            <v-card
+              v-else-if="lineSorts.includes(sortBy)"
+              class="mx-0 my-0 px-0 py-0"
+            >
               <span v-for="mon in pokemon" :key="mon.id">
-                <span v-if="mon.id === x.key">
-                  {{ mon.data.name }}: {{ x.avg }}
+                <v-layout v-if="mon.id === x.key">
+                  <v-flex xs3 class="center" align="center">
+                    {{ mon.data.name }}
+                  </v-flex>
+                  <v-flex xs5>
+                    <v-progress-linear
+                      :color="typeColors[mon.data.types[0]]"
+                      height="20"
+                      :value="x.avg * 10"
+                    />
+                  </v-flex>
+                  <v-flex xs2 class="center" align="center">
+                    {{ x.avg }}
+                  </v-flex>
+                  <v-flex xs2 class="text-xs-center">
+                    <v-btn
+                      color="red darken-2"
+                      class="white--text"
+                      round
+                      @click="changeSort('ratings', { line: x.key })"
+                    >
+                      EDIT LINE
+                    </v-btn>
+                  </v-flex>
+                </v-layout>
+              </span>
+            </v-card>
+            <v-card
+              v-else-if="genSorts.includes(sortBy)"
+              class="mx-0 my-0 px-0 py-0"
+            >
+              <v-layout>
+                <v-flex xs3 class="center" align="center">
+                  Gen {{ x.key }}
+                </v-flex>
+                <v-flex xs5>
                   <v-progress-linear
-                    :color="typeColors[mon.data.types[0]]"
+                    :color="genColors[parseInt(x.key) - 1]"
                     height="20"
                     :value="x.avg * 10"
                   />
-                </span>
-              </span>
+                </v-flex>
+                <v-flex xs2 class="center" align="center">
+                  {{ x.avg }}
+                </v-flex>
+                <v-flex xs2 class="text-xs-center">
+                  <v-btn
+                    color="red darken-2"
+                    class="white--text"
+                    round
+                    @click="changeSort('ratings', { gen: x.key })"
+                  >
+                    EDIT GEN
+                  </v-btn>
+                </v-flex>
+              </v-layout>
             </v-card>
-            <v-card v-else-if="genSorts.includes(sortBy)">
-              Gen {{ x.key }}: {{ x.avg }}
-              <v-progress-linear
-                :color="genColors[parseInt(x.key) - 1]"
-                height="20"
-                :value="x.avg * 10"
-              />
-            </v-card>
-            <v-card v-else-if="typeSorts.includes(sortBy)">
-              {{ x.key }}: {{ x.avg }}
-              <v-progress-linear
-                :color="typeColors[x.key]"
-                height="20"
-                :value="x.avg * 10"
-              />
-            </v-card>
-            <v-card v-else>
-              {{ x.key }}: {{ x.avg }}
-              <v-progress-linear
-                color="yellow"
-                height="20"
-                :value="x.avg * 10"
-              />
+            <v-card
+              v-else-if="typeSorts.includes(sortBy)"
+              class="mx-0 my-0 px-0 py-0"
+            >
+              <v-layout>
+                <v-flex xs3 class="center" align="center">
+                  {{ x.key }}
+                </v-flex>
+                <v-flex xs5>
+                  <v-progress-linear
+                    :color="typeColors[x.key]"
+                    height="20"
+                    :value="x.avg * 10"
+                  />
+                </v-flex>
+                <v-flex xs2 class="center" align="center">
+                  {{ x.avg }}
+                </v-flex>
+                <v-flex xs2 class="text-xs-center">
+                  <v-btn
+                    color="red darken-2"
+                    class="white--text"
+                    round
+                    @click="changeSort('ratings', { types: x.key })"
+                  >
+                    EDIT TYPE
+                  </v-btn>
+                </v-flex>
+              </v-layout>
             </v-card>
           </span>
         </v-card>
@@ -169,7 +216,7 @@
 function takeAvg(array) {
   array.forEach(x => {
     if (x.count > 0) {
-      x.avg = x.score / x.count;
+      x.avg = parseFloat((x.score / x.count).toFixed(2));
     } else {
       x.avg = 0;
     }
