@@ -13,7 +13,7 @@ if os.path.isfile(filename):
 else:
     print('{} does not exist'.format(filename))
 
-boolean_keys = ['mega', 'ultra', 'alolan', 'starter', 'legendary', 'mythical', 'pseudo', 'baby', 'regional_bird', 'regional_rodent', 'regional_bug', 'fossil']
+boolean_keys = ['mega', 'ultra', 'alolan', 'galarian', 'starter', 'legendary', 'mythical', 'pseudo', 'baby', 'regional_bird', 'regional_rodent', 'regional_bug', 'fossil']
 
 for k in boolean_keys:
     inp = input("Change the value of *" + k + "* for some pokemon? (y/n): ")

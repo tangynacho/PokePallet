@@ -15,11 +15,11 @@ else:
 
 for d in data:
     # change this based on the desired key to add
-    data[d]["rating"] = 0
+    data[d]["galarian"] = False
 
 with open(filename, 'w') as json_out:
-            try:
-                json.dump(data, json_out, indent=4)
-                print(pok["name"], k, "set to", pok[k])
-            except:
-                print('error saving to file')
+    try:
+        json.dump(data, json_out, indent=4)
+        print("done")
+    except:
+        print('error saving to file')
