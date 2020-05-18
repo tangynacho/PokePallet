@@ -7,8 +7,8 @@
           <v-img
             :src="current.img"
             class="center mt-2 mb-4"
-            :width="w / 3"
-            :height="h / 3"
+            :width="w / 3.5"
+            :height="h / 3.5"
             contain
           />
         </v-card>
