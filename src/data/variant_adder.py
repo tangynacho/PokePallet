@@ -58,7 +58,8 @@ while True:
             "types": ptypes,
             "line": line,
             "alolan": alolan,
-            "galarian": galarian
+            "galarian": galarian,
+            "rating": 0
         }
         for bk in boolean_keys:
             newbie[bk] = False
