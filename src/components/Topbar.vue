@@ -68,12 +68,41 @@ export default {
     save() {
       saveJSON(this.pokemon);
     },
-    load(pokemon) {
-      this.pokemon = pokemon;
+    load(newPokemon) {
+      for (let pok of this.pokemon) {
+        let hasit = false;
+        for (let mon of newPokemon) {
+          if (mon.id === pok.id) {
+            hasit = true;
+            for (let key in pok.data) {
+              if (key !== "rating") {
+                mon.data[key] = pok.data[key];
+              }
+            }
+            break;
+          }
+        }
+        if (!hasit) {
+          newPokemon.push({
+            id: pok.id,
+            data: pok.data
+          });
+        }
+      }
+      newPokemon.sort(function(x, y) {
+        if (x.id < y.id) {
+          return -1;
+        }
+        if (x.id > y.id) {
+          return 1;
+        }
+        return 0;
+      });
+      this.pokemon = newPokemon;
       this.$router.push({
         name: "Loader",
         params: {
-          pokemon,
+          pokemon: newPokemon,
           destination: "Ratings"
         }
       });
