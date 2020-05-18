@@ -5,56 +5,40 @@
         <p :class="bigtext">Welcome to PokePallet! (Alpha)</p>
         <ul :class="`${liltext} text-xs-left`">
           <li>
-            You'll be presented with all 890 pokemon, one at a time, giving each
-            one a rating.
+            You'll be presented with all {{ pokemon.length }} pokemon, one at a
+            time, giving each one a rating from 1 to 10.
           </li>
           <li>
-            Once you have rated all of the pokemon, you can see a whole bunch of
-            stats about your preference in pokemon.
+            Currently, Regional Variants are not supported :/ But they are
+            coming soon!
           </li>
           <li>
-            At the end, you'll be able to download your very own PokePallet with
-            all your stats to share and compare with friends!
+            If you don't have time to rate them all at once, use the Save button
+            at the top to save your progress, and the Load button to load it
+            back up when you return.
           </li>
           <li>
-            Currently, Megas and Regional Variants are not supported :/ But they
-            are coming soon!
+            Once you have rated all of the pokemon, you'll be able to see a
+            whole bunch of stats about your preference in pokemon! If you made
+            any mistakes or change your mind on anything, you can change all of
+            your ratings there.
           </li>
           <li>
-            The buttons at the top can be used to save/load your PokePallet so
-            that you don't have to rate all the pokemon at once. Loading might
-            only work from the Home page, but it should bring you right to the
-            next pokemon you need to rate. If it doesn't work, try refreshing
-            the page.
+            Don't forget to Save at the end! A completed PokePallet is useful
+            for sharing and comparing with friends!
           </li>
         </ul>
         <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">
-          <p :class="medtext">To get started, choose a rating system below:</p>
-          <p :class="`${liltext} text-xs-left`">
+          <p :class="medtext">Click the button when you're ready to begin.</p>
+          <p class="text-xs-center`">
             <v-btn
-              color="red"
-              class="white--text font-weight-bold mode-btn"
-              @click="setmode('tens')"
-              >TEN-SCALE</v-btn
-            >Rate each pokemon on a scale from 1 to 10.
-          </p>
-          <p :class="`${liltext} text-xs-left`">
-            <v-btn
-              disabled
-              color="green"
-              class="white--text font-weight-bold mode-btn"
-              @click="setmode('like')"
-              >LIKE / DISLIKE</v-btn
-            >Coming Soon
-          </p>
-          <p :class="`${liltext} text-xs-left`">
-            <v-btn
-              disabled
-              color="blue"
-              class="white--text font-weight-bold mode-btn"
-              @click="setmode('spec')"
-              >SPECTRUM</v-btn
-            >Coming Soon
+              min-height="100%"
+              large
+              color="red darken-2"
+              :class="`${liltext} white--text font-weight-bold`"
+              @click="start()"
+              >LET'S GO!
+            </v-btn>
           </p>
         </v-card>
       </v-flex>
@@ -89,8 +73,7 @@ export default {
       // window info
       h: window.innerHeight,
       w: window.innerWidth,
-      // mode variable
-      mode: undefined
+      pokemon: pokemon
     };
   },
   computed: {
@@ -115,11 +98,10 @@ export default {
   },
   methods: {
     // set the mode and begin rating
-    setmode(mode) {
+    start() {
       this.$router.push({
         name: "Ratings",
         params: {
-          mode,
           pokemon: pokemon
         }
       });
@@ -128,28 +110,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.mode-btn {
-  width: 120px;
-}
-.my-box {
-  height: 16px;
-  width: 16px;
-}
-.colored {
-  background-color: #555555;
-}
-.inputfile {
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
-}
-
-.inputfile + label {
-  cursor: pointer;
-  font-weight: bold;
-  padding-left: 20px;
-  padding-right: 30px;
-}
-</style>
+<style scoped></style>

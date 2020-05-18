@@ -16,30 +16,7 @@
           #{{ currentID.replace(/\D/g, "") }} {{ current.name }}
         </p>
         <div v-animate-css="'fadeInUp'">
-          <v-layout v-if="mode === 'like'" justify-center>
-            <v-btn color="red" class="white--text" @click="next(3)"
-              >DISLIKE</v-btn
-            >
-            <v-btn color="green" class="white--text" @click="next(7)"
-              >LIKE</v-btn
-            >
-          </v-layout>
-          <v-layout v-if="mode === 'spec'" justify-center>
-            <v-btn color="red" class="white--text" @click="next(1)">HATE</v-btn>
-            <v-btn color="purple" class="white--text" @click="next(3)"
-              >DISLIKE</v-btn
-            >
-            <v-btn color="blue" class="white--text" @click="next(5)"
-              >NEUTRAL</v-btn
-            >
-            <v-btn color="teal" class="white--text" @click="next(7)"
-              >LIKE</v-btn
-            >
-            <v-btn color="green" class="white--text" @click="next(9)"
-              >LOVE</v-btn
-            >
-          </v-layout>
-          <v-layout v-if="mode === 'tens'" justify-center>
+          <v-layout justify-center>
             <v-btn icon color="red" class="white--text" @click="next(1)"
               >1</v-btn
             >
@@ -92,8 +69,7 @@ export default {
   },
   data() {
     return {
-      // router parameters
-      mode: this.$route.params.mode ? this.$route.params.mode : "tens",
+      // pokemon from the router
       pokemon: this.$route.params.pokemon,
       // window info
       h: window.innerHeight,
@@ -146,7 +122,6 @@ export default {
         this.$router.push({
           name: "Pallet",
           params: {
-            mode: this.mode,
             pokemon: this.pokemon
           }
         });
@@ -163,7 +138,6 @@ export default {
         this.$router.push({
           name: "Pallet",
           params: {
-            mode: this.mode,
             pokemon: this.pokemon
           }
         });
