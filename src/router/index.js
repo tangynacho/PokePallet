@@ -5,12 +5,14 @@ import New from '@/components/templates/NewPage'
 import Ratings from '@/components/Ratings'
 import Pallet from '@/components/Pallet'
 import Supported from '@/components/Supported'
+import Loader from '@/components/Loader'
 
 Vue.use(Router)
 
+/* eslint-disable */
+
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/',
       name: 'Home',
       component: Home
@@ -34,6 +36,11 @@ export default new Router({
       path: '/supported',
       name: 'Supported',
       component: Supported
+    },
+    {
+      path: '/loader',
+      name: 'Loader',
+      component: Loader
     }
   ]
 })

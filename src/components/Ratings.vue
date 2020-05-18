@@ -76,6 +76,8 @@ export default {
       w: window.innerWidth,
       // variable for mount stalling
       waited: false,
+      // variable to help routing
+      finished: false,
       // current index
       i: 0
     };
@@ -119,12 +121,7 @@ export default {
         this.findNext();
       } else {
         // otherwise, route to Pallet
-        this.$router.push({
-          name: "Pallet",
-          params: {
-            pokemon: this.pokemon
-          }
-        });
+        this.finish();
       }
     },
     wait() {
@@ -135,13 +132,18 @@ export default {
         this.i++;
       }
       if (this.i == this.pokemon.length - 1 && this.current.rating != 0) {
-        this.$router.push({
-          name: "Pallet",
-          params: {
-            pokemon: this.pokemon
-          }
-        });
+        this.finish();
       }
+    },
+    finish() {
+      this.finished = true;
+      this.$router.push({
+        name: "Loader",
+        params: {
+          pokemon: this.pokemon,
+          destination: "Pallet"
+        }
+      });
     }
   },
   beforeMount() {
@@ -153,7 +155,9 @@ export default {
     this.findNext();
   },
   beforeRouteLeave(to, from, next) {
-    if (to.name !== "Pallet") {
+    if (this.finished) {
+      next();
+    } else {
       const answer = window.confirm(
         "If you leave this page, you will lose any unsaved progress. Are you sure you want to leave?"
       );
@@ -162,8 +166,6 @@ export default {
       } else {
         next(false);
       }
-    } else {
-      next();
     }
   }
 };

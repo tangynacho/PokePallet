@@ -100,9 +100,10 @@ export default {
     // set the mode and begin rating
     start() {
       this.$router.push({
-        name: "Ratings",
+        name: "Loader",
         params: {
-          pokemon: pokemon
+          pokemon: pokemon,
+          destination: "Ratings"
         }
       });
     }
