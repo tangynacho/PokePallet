@@ -20909,5 +20909,28 @@
         "fossil": false,
         "rating": 0,
         "galarian": false
+    },
+    "019A": {
+        "name": "Alolan Rattata",
+        "img": "https://img.pokemondb.net/artwork/large/rattata-alolan.jpg",
+        "gen": 7,
+        "types": [
+            "Dark",
+            "Normal"
+        ],
+        "line": "019A",
+        "alolan": true,
+        "galarian": false,
+        "mega": false,
+        "ultra": false,
+        "starter": false,
+        "legendary": false,
+        "mythical": false,
+        "pseudo": false,
+        "baby": false,
+        "regional_bird": false,
+        "regional_rodent": false,
+        "regional_bug": false,
+        "fossil": false
     }
 }
