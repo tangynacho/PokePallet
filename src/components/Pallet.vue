@@ -64,33 +64,64 @@
     </v-layout>
     <v-layout justify-center>
       <v-flex xs6>
-        <v-card>
+        <v-card color="grey darken-3">
           <span v-if="sortedArray.length === 0">
             <v-card-text class="title text-xs-left">No results.</v-card-text>
           </span>
-          <v-card-text
+          <span
             v-for="x in sortedArray"
             :key="sortedArray.indexOf(x)"
             class="headline my-0 py-0 text-xs-left"
           >
-            <span v-if="sortBy === 'ratings'">
-              <span v-if="allowed(x.data)">
-                {{ x.data.name }}
-                <buttons
+            <v-card v-if="sortBy === 'ratings'" class="mx-0 my-0 px-0 py-0">
+              <v-layout py-1 my-1 v-if="allowed(x.data)">
+                <v-flex xs3 class="center" align="center">
+                  {{ x.data.name }}
+                </v-flex>
+
+                <!-- <buttons
                   :rating="x.data.rating"
                   :color="typeColors[x.data.types[0]]"
                   :id="x.id"
                   @i="setIDToChange"
                   @n="changeRating"
-                />
-                <v-progress-linear
-                  :color="typeColors[x.data.types[0]]"
-                  height="20"
-                  :value="x.data.rating * 10"
-                />
-              </span>
-            </span>
-            <span v-else-if="lineSorts.includes(sortBy)">
+                /> -->
+                <v-flex v-if="idToChange != x.id" xs6>
+                  <v-progress-linear
+                    align="top"
+                    height="20"
+                    :color="typeColors[x.data.types[0]]"
+                    :value="x.data.rating * 10"
+                  />
+                </v-flex>
+                <v-flex
+                  v-if="idToChange != x.id"
+                  xs1
+                  class="center"
+                  align="center"
+                >
+                  {{ x.data.rating }}
+                </v-flex>
+                <v-flex v-if="idToChange != x.id" xs2>
+                  <v-btn
+                    color="red darken-2"
+                    class="white--text"
+                    round
+                    @click="setIDToChange(x.id)"
+                  >
+                    EDIT
+                  </v-btn>
+                </v-flex>
+                <v-flex xs9 v-if="idToChange == x.id">
+                  <buttons
+                    :rating="x.data.rating"
+                    :color="typeColors[x.data.types[0]]"
+                    @n="changeRating"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-card>
+            <v-card v-else-if="lineSorts.includes(sortBy)">
               <span v-for="mon in pokemon" :key="mon.id">
                 <span v-if="mon.id === x.key">
                   {{ mon.data.name }}: {{ x.avg }}
@@ -101,32 +132,32 @@
                   />
                 </span>
               </span>
-            </span>
-            <span v-else-if="genSorts.includes(sortBy)">
+            </v-card>
+            <v-card v-else-if="genSorts.includes(sortBy)">
               Gen {{ x.key }}: {{ x.avg }}
               <v-progress-linear
                 :color="genColors[parseInt(x.key) - 1]"
                 height="20"
                 :value="x.avg * 10"
               />
-            </span>
-            <span v-else-if="typeSorts.includes(sortBy)">
+            </v-card>
+            <v-card v-else-if="typeSorts.includes(sortBy)">
               {{ x.key }}: {{ x.avg }}
               <v-progress-linear
                 :color="typeColors[x.key]"
                 height="20"
                 :value="x.avg * 10"
               />
-            </span>
-            <span v-else>
+            </v-card>
+            <v-card v-else>
               {{ x.key }}: {{ x.avg }}
               <v-progress-linear
                 color="yellow"
                 height="20"
                 :value="x.avg * 10"
               />
-            </span>
-          </v-card-text>
+            </v-card>
+          </span>
         </v-card>
       </v-flex>
     </v-layout>
@@ -198,7 +229,7 @@ export default {
       pokemon: this.$route.params.pokemon,
       sortBy: "ratings",
       onlyShow: {},
-      idToChange: "000",
+      idToChange: "None",
       gs: [1, 2, 3, 4, 5, 6, 7, 8],
       ts: [
         "Normal",
@@ -423,6 +454,7 @@ export default {
     changeSort(s = "ratings", o = {}) {
       this.sortBy = s;
       this.onlyShow = o;
+      this.idToChange = "None";
     },
     allowed(mon) {
       let al = true;
@@ -443,8 +475,8 @@ export default {
       });
       return al;
     },
-    setIDToChange(value) {
-      this.idToChange = value;
+    setIDToChange(i) {
+      this.idToChange = i;
     },
     changeRating(value) {
       this.pokemon.forEach(mon => {
@@ -465,6 +497,7 @@ export default {
       this.regional_bugs = [];
       this.regional_sets = [];
       this.regional_sets_with_starters = [];
+      this.idToChange = "None";
       this.process();
     }
   },
@@ -481,4 +514,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.center {
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+</style>
