@@ -17,8 +17,8 @@
             color="amber"
             class="font-weight-bold"
             @click="changeSort('ratings')"
-            >ALL POKEMON</v-btn
-          >
+            >ALL POKEMON
+          </v-btn>
           <v-layout justify-center mb-2>
             <v-btn color="red darken-3" dark @click="changeSort('types')"
               >TYPES</v-btn
@@ -71,11 +71,18 @@
           <v-card-text
             v-for="x in sortedArray"
             :key="sortedArray.indexOf(x)"
-            class="headline my-0 py-0"
+            class="headline my-0 py-0 text-xs-left"
           >
             <span v-if="sortBy === 'ratings'">
               <span v-if="allowed(x.data)">
-                {{ x.data.name }}: {{ x.data.rating }}
+                {{ x.data.name }}
+                <buttons
+                  :rating="x.data.rating"
+                  :color="typeColors[x.data.types[0]]"
+                  :id="x.id"
+                  @i="setIDToChange"
+                  @n="changeRating"
+                />
                 <v-progress-linear
                   :color="typeColors[x.data.types[0]]"
                   height="20"
@@ -180,11 +187,20 @@ function valueCheck(array, value, rating) {
   return arr;
 }
 
+import Buttons from "./Buttons.vue";
+
 export default {
+  components: {
+    Buttons
+  },
   data() {
     return {
       mode: this.$route.params.mode,
       pokemon: this.$route.params.pokemon,
+      sortBy: "ratings",
+      onlyShow: {},
+      idToChange: "000",
+      gs: [1, 2, 3, 4, 5, 6, 7, 8],
       ts: [
         "Normal",
         "Fire",
@@ -205,19 +221,6 @@ export default {
         "Steel",
         "Fairy"
       ],
-      gs: [1, 2, 3, 4, 5, 6, 7, 8],
-      types: [],
-      gens: [],
-      pseudo_lines: [],
-      starter_lines: [],
-      gens_by_starters: [],
-      regional_birds: [],
-      regional_rodents: [],
-      regional_bugs: [],
-      regional_sets: [],
-      regional_sets_with_starters: [],
-      sortBy: "ratings",
-      onlyShow: {},
       lineSorts: [
         "pseudo_lines",
         "starter_lines",
@@ -256,7 +259,17 @@ export default {
         Dark: "grey darken-4",
         Steel: "blue-grey lighten-3",
         Fairy: "pink lighten-3"
-      }
+      },
+      types: [],
+      gens: [],
+      pseudo_lines: [],
+      starter_lines: [],
+      gens_by_starters: [],
+      regional_birds: [],
+      regional_rodents: [],
+      regional_bugs: [],
+      regional_sets: [],
+      regional_sets_with_starters: []
     };
   },
   computed: {
@@ -473,6 +486,30 @@ export default {
         }
       });
       return al;
+    },
+    setIDToChange(value) {
+      this.idToChange = value;
+    },
+    changeRating(value) {
+      this.pokemon.forEach(mon => {
+        if (mon.id === this.idToChange) {
+          mon.data.rating = value;
+          this.reset();
+        }
+      });
+    },
+    reset() {
+      this.types = [];
+      this.gens = [];
+      this.pseudo_lines = [];
+      this.starter_lines = [];
+      this.gens_by_starters = [];
+      this.regional_birds = [];
+      this.regional_rodents = [];
+      this.regional_bugs = [];
+      this.regional_sets = [];
+      this.regional_sets_with_starters = [];
+      this.process();
     }
   },
   beforeRouteLeave(to, from, next) {

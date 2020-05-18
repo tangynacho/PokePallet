@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <PreventUnload :when="true" />
     <v-layout justify-center>
       <v-flex v-if="waited" xs4>
         <v-card color="white" v-animate-css="'fadeInDown'">
@@ -10,23 +11,6 @@
             :height="h / 3"
             contain
           />
-          <!-- <v-layout justify-center my-4>
-            <v-img
-              :src="
-                require(`@/assets/images/types/${current.types[0]}Symbol.png`)
-              "
-              class="type-img mt-4 mx-4"
-              v-animate-css="'fadeIn fast'"
-            />
-            <v-img
-              v-if="current.types.length > 1"
-              :src="
-                require(`@/assets/images/types/${current.types[1]}Symbol.png`)
-              "
-              class="type-img mt-4 mx-4"
-              v-animate-css="'fadeIn fast'"
-            />
-          </v-layout>-->
         </v-card>
         <p :class="medtext + ' mt-3'" v-animate-css="'fadeInDown'">
           #{{ currentID.replace(/\D/g, "") }} {{ current.name }}
@@ -99,32 +83,18 @@
 
 <script>
 /* eslint-disable */
-// loads the json file
-let pokemonJSON = require("@/data/pokemon.json");
-// turns the Object into an array of Objects
-let pokemon = Object.keys(pokemonJSON).map(function(key) {
-  return { id: key, data: pokemonJSON[key] };
-});
-// sorts the array by id number
-pokemon.sort(function(x, y) {
-  if (x.id < y.id) {
-    return -1;
-  }
-  if (x.id > y.id) {
-    return 1;
-  }
-  return 0;
-});
 
+import PreventUnload from "vue-prevent-unload";
 export default {
   name: "Ratings",
+  components: {
+    PreventUnload
+  },
   data() {
     return {
       // router parameters
       mode: this.$route.params.mode ? this.$route.params.mode : "tens",
-      pokemon: this.$route.params.pokemon
-        ? this.$route.params.pokemon
-        : pokemon,
+      pokemon: this.$route.params.pokemon,
       // window info
       h: window.innerHeight,
       w: window.innerWidth,
@@ -169,8 +139,8 @@ export default {
       this.current.rating = r;
       // if not at the end
       if (this.i + 1 < this.pokemon.length) {
-        // move forward 1
-        this.i++;
+        // move forward to the next unrated mon
+        this.findNext();
       } else {
         // otherwise, route to Pallet
         this.$router.push({
@@ -184,6 +154,20 @@ export default {
     },
     wait() {
       this.waited = true;
+    },
+    findNext() {
+      while (this.current.rating != 0 && this.i < this.pokemon.length - 1) {
+        this.i++;
+      }
+      if (this.i == this.pokemon.length - 1 && this.current.rating != 0) {
+        this.$router.push({
+          name: "Pallet",
+          params: {
+            mode: this.mode,
+            pokemon: this.pokemon
+          }
+        });
+      }
     }
   },
   beforeMount() {
@@ -192,11 +176,7 @@ export default {
     }, 400);
   },
   mounted() {
-    for (let p = 0; p < this.pokemon.length; p++) {
-      if (this.pokemon[p].data["rating"] != 0) {
-        this.i = this.i + 1;
-      }
-    }
+    this.findNext();
   },
   beforeRouteLeave(to, from, next) {
     if (to.name !== "Pallet") {

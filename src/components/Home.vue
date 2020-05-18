@@ -21,10 +21,11 @@
             are coming soon!
           </li>
           <li>
-            The buttons at the top will be used to save/load your PokePallet so
-            that you don't have to rate all the pokemon at once. This
-            functionality is coming soon. As of now, you'll have to do it all
-            without leaving the page.
+            The buttons at the top can be used to save/load your PokePallet so
+            that you don't have to rate all the pokemon at once. Loading might
+            only work from the Home page, but it should bring you right to the
+            next pokemon you need to rate. If it doesn't work, try refreshing
+            the page.
           </li>
         </ul>
         <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">
@@ -64,7 +65,22 @@
 <script>
 /* eslint-disable */
 
+// loads the json file
 let pokemonJSON = require("@/data/pokemon.json");
+// turns the Object into an array of Objects
+let pokemon = Object.keys(pokemonJSON).map(function(key) {
+  return { id: key, data: pokemonJSON[key] };
+});
+// sorts the array by id number
+pokemon.sort(function(x, y) {
+  if (x.id < y.id) {
+    return -1;
+  }
+  if (x.id > y.id) {
+    return 1;
+  }
+  return 0;
+});
 
 export default {
   name: "Home",
@@ -103,7 +119,8 @@ export default {
       this.$router.push({
         name: "Ratings",
         params: {
-          mode
+          mode,
+          pokemon: pokemon
         }
       });
     }
