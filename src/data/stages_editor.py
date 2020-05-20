@@ -13,16 +13,14 @@ if os.path.isfile(filename):
 else:
     print('{} does not exist'.format(filename))
 
-key = "stages"
-default = 1
-
 for d in data:
-    # change this based on the desired key to add
-    data[d][key] = default
-
-with open(filename, 'w') as json_out:
-    try:
-        json.dump(data, json_out, indent=4)
-        print("done")
-    except:
-        print('error saving to file')
+    pok = data[d]
+    print(pok["name"])
+    pok["stage"] = input("Enter stage: ")
+    pok["stages"] = input("Enter stages: ")
+    with open(filename, 'w') as json_out:
+        try:
+            json.dump(data, json_out, indent=4)
+            print('saved')
+        except:
+            print('error saving to file')

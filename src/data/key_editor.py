@@ -13,7 +13,7 @@ if os.path.isfile(filename):
 else:
     print('{} does not exist'.format(filename))
 
-valid_keys = ['name', 'img', 'gen', 'types', 'line']
+valid_keys = ['name', 'img', 'gen', 'types', 'line', 'stage', 'stages']
 types = ["Normal", "Fire", "Water", "Electric", "Grass", "Ice", "Fighting", "Poison", "Ground", "Flying", "Psychic", "Bug", "Rock", "Ghost", "Dragon", "Dark", "Steel", "Fairy"]
 gens = [1, 2, 3, 4, 5, 6, 7, 8]
 

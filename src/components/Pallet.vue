@@ -1,49 +1,24 @@
 <template>
   <v-container fluid>
-    <v-layout justify-center mt-2>
-      <v-flex xs4 id="col2" class="mb-4">
-        <p class="display-1 my-2">Type Rankings</p>
-        <v-btn
-          v-for="t in ts"
-          :key="t"
-          dark
-          @click="changeSort('ratings', { types: t }, t + ' Type Pokemon')"
-          >{{ t }} TYPES</v-btn
-        >
-      </v-flex>
-      <v-flex xs3 id="col3" class="mb-4">
-        <v-flex my-4>
+    <p class="display-3 font-weight-bold">Welcome to your PokePallet!</p>
+    <v-layout justify-center>
+      <v-flex xs3 id="col2" class="mb-4 mr-2">
+        <div>
           <v-btn
-            color="amber"
-            class="font-weight-bold"
-            @click="changeSort('ratings')"
-            >ALL POKEMON
-          </v-btn>
-          <v-layout justify-center mb-2>
-            <v-btn
-              color="red darken-3"
-              dark
-              @click="changeSort('types', {}, 'Types')"
-              >TYPES</v-btn
-            >
-            <v-btn
-              color="blue darken-2"
-              dark
-              @click="changeSort('gens', {}, 'Gens')"
-              >GENS</v-btn
-            >
-          </v-layout>
-        </v-flex>
-        <p class="display-1 my-2">Gen Rankings</p>
-        <v-btn
-          v-for="g in gs"
-          :key="g"
-          dark
-          @click="changeSort('ratings', { gen: g }, 'Gen ' + g + ' Pokemon')"
-          >GEN {{ g }}</v-btn
-        >
-      </v-flex>
-      <v-flex xs4 id="col1" class="mb-4">
+            color="red darken-3"
+            dark
+            @click="changeSort('types', {}, 'Types')"
+            >TYPES</v-btn
+          >
+          <p class="display-1 my-2">Type Rankings</p>
+          <v-btn
+            v-for="t in ts"
+            :key="t"
+            dark
+            @click="changeSort('ratings', { types: t }, t + ' Type Pokemon')"
+            >{{ t }} TYPES</v-btn
+          >
+        </div>
         <div>
           <p class="display-1 my-2">Aggregated Rankings</p>
           <v-btn
@@ -85,152 +60,264 @@
           >
         </div>
       </v-flex>
-    </v-layout>
-    <p class="display-3">{{ title }}</p>
-    <v-layout justify-center>
-      <v-flex xs6>
-        <v-card color="grey darken-3">
-          <span v-if="sortedArray.length === 0">
-            <v-card-text class="title text-xs-left">No results.</v-card-text>
-          </span>
-          <span
-            v-for="x in sortedArray"
-            :key="sortedArray.indexOf(x)"
-            class="headline my-0 py-0 text-xs-left"
-          >
-            <v-card v-if="sortBy === 'ratings'" class="mx-0 my-0 px-0 py-0">
-              <v-layout v-if="allowed(x.data)">
-                <v-flex xs3 class="center" align="center">
-                  {{ x.data.name }}
-                </v-flex>
-                <v-flex v-if="idToChange != x.id" xs6>
-                  <v-progress-linear
-                    height="20"
-                    :color="typeColors[x.data.types[0]]"
-                    :value="x.data.rating * 10"
-                  />
-                </v-flex>
-                <v-flex
-                  v-if="idToChange != x.id"
-                  xs1
-                  class="center"
-                  align="center"
+      <v-flex xs6 id="col3" class="mb-4">
+        <p class="headline mb-4">
+          Use the buttons to see all sorts of different stats!
+        </p>
+        <v-layout justify-center mb-2>
+          <v-btn
+            color="amber"
+            class="font-weight-bold"
+            @click="changeSort('ratings')"
+            >ALL POKEMON
+          </v-btn>
+        </v-layout>
+        <p class="display-3 mt-2">{{ title }}</p>
+        <v-layout justify-center>
+          <v-flex xs12>
+            <v-card color="grey darken-3">
+              <span v-if="sortedArray.length === 0">
+                <v-card-text class="title text-xs-left"
+                  >No results.</v-card-text
                 >
-                  {{ x.data.rating }}
-                </v-flex>
-                <v-flex v-if="idToChange != x.id" xs2 class="text-xs-center">
-                  <v-btn
-                    color="red darken-2"
-                    class="white--text"
-                    round
-                    @click="setIDToChange(x.id)"
-                  >
-                    EDIT
-                  </v-btn>
-                </v-flex>
-                <v-flex xs9 v-if="idToChange == x.id">
-                  <buttons
-                    :rating="x.data.rating"
-                    :color="typeColors[x.data.types[0]]"
-                    @n="changeRating"
-                  />
-                </v-flex>
-              </v-layout>
-            </v-card>
-            <v-card
-              v-else-if="lineSorts.includes(sortBy)"
-              class="mx-0 my-0 px-0 py-0"
-            >
-              <span v-for="mon in pokemon" :key="mon.id">
-                <v-layout v-if="mon.id === x.key">
-                  <v-flex xs3 class="center" align="center">
-                    {{ mon.data.name }}
-                  </v-flex>
-                  <v-flex xs5>
-                    <v-progress-linear
-                      :color="typeColors[mon.data.types[0]]"
-                      height="20"
-                      :value="x.avg * 10"
-                    />
-                  </v-flex>
-                  <v-flex xs2 class="center" align="center">
-                    {{ x.avg }}
-                  </v-flex>
-                  <v-flex xs2 class="text-xs-center">
-                    <v-btn
-                      color="red darken-2"
-                      class="white--text"
-                      round
-                      @click="changeSort('ratings', { line: x.key })"
+              </span>
+              <span
+                v-for="x in sortedArray"
+                :key="sortedArray.indexOf(x)"
+                class="headline my-0 py-0 text-xs-left"
+              >
+                <v-card v-if="sortBy === 'ratings'" class="mx-0 my-1 px-0 py-0">
+                  <v-layout v-if="allowed(x.data)">
+                    <v-flex xs3 class="center" align="center">
+                      {{ x.data.name }}
+                    </v-flex>
+                    <v-flex v-if="idToChange != x.id" xs6>
+                      <v-progress-linear
+                        height="20"
+                        :color="typeColors[x.data.types[0]]"
+                        :value="x.data.rating * 10"
+                      />
+                    </v-flex>
+                    <v-flex
+                      v-if="idToChange != x.id"
+                      xs1
+                      class="center"
+                      align="center"
                     >
-                      EDIT LINE
-                    </v-btn>
-                  </v-flex>
-                </v-layout>
+                      {{ x.data.rating }}
+                    </v-flex>
+                    <v-flex
+                      v-if="idToChange != x.id"
+                      xs2
+                      class="text-xs-center"
+                    >
+                      <v-btn
+                        color="grey darken-3"
+                        class="white--text"
+                        round
+                        @click="setIDToChange(x.id)"
+                      >
+                        CHANGE
+                      </v-btn>
+                    </v-flex>
+                    <v-flex xs9 v-if="idToChange == x.id">
+                      <buttons
+                        :rating="x.data.rating"
+                        :color="typeColors[x.data.types[0]]"
+                        @n="changeRating"
+                      />
+                    </v-flex>
+                  </v-layout>
+                </v-card>
+                <v-card
+                  v-else-if="lineSorts.includes(sortBy)"
+                  class="mx-0 my-1 px-0 py-0"
+                >
+                  <span v-for="mon in pokemon" :key="mon.id">
+                    <v-layout v-if="mon.id === x.key">
+                      <v-flex xs3 class="center" align="center">
+                        {{ mon.data.name }}
+                      </v-flex>
+                      <v-flex xs5>
+                        <v-progress-linear
+                          :color="typeColors[mon.data.types[0]]"
+                          height="20"
+                          :value="x.avg * 10"
+                        />
+                      </v-flex>
+                      <v-flex xs2 class="center" align="center">
+                        {{ x.avg }}
+                      </v-flex>
+                      <v-flex xs2 class="text-xs-center">
+                        <v-btn
+                          color="grey darken-3"
+                          class="white--text"
+                          round
+                          @click="
+                            changeSort(
+                              'ratings',
+                              { line: x.key },
+                              mon.data.name + ' Line'
+                            )
+                          "
+                        >
+                          EDIT LINE
+                        </v-btn>
+                      </v-flex>
+                    </v-layout>
+                  </span>
+                </v-card>
+                <v-card
+                  v-else-if="genSorts.includes(sortBy)"
+                  class="mx-0 my-1 px-0 py-0"
+                >
+                  <v-layout>
+                    <v-flex xs3 class="center" align="center">
+                      Gen {{ x.key }}
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-progress-linear
+                        :color="genColors[parseInt(x.key) - 1]"
+                        height="20"
+                        :value="x.avg * 10"
+                      />
+                    </v-flex>
+                    <v-flex xs2 class="center" align="center">
+                      {{ x.avg }}
+                    </v-flex>
+                    <v-flex xs2 class="text-xs-center">
+                      <v-btn
+                        color="grey darken-3"
+                        class="white--text"
+                        round
+                        @click="
+                          changeSort(
+                            'ratings',
+                            { gen: x.key },
+                            'Gen ' + x.key + ' Pokemon'
+                          )
+                        "
+                      >
+                        EDIT GEN
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card>
+                <v-card
+                  v-else-if="typeSorts.includes(sortBy)"
+                  class="mx-0 my-1 px-0 py-0"
+                >
+                  <v-layout>
+                    <v-flex xs3 class="center" align="center">
+                      {{ x.key }}
+                    </v-flex>
+                    <v-flex xs5>
+                      <v-progress-linear
+                        :color="typeColors[x.key]"
+                        height="20"
+                        :value="x.avg * 10"
+                      />
+                    </v-flex>
+                    <v-flex xs2 class="center" align="center">
+                      {{ x.avg }}
+                    </v-flex>
+                    <v-flex xs2 class="text-xs-center">
+                      <v-btn
+                        color="grey darken-3"
+                        class="white--text"
+                        round
+                        @click="
+                          changeSort(
+                            'ratings',
+                            { types: x.key },
+                            x.key + ' Type Pokemon'
+                          )
+                        "
+                      >
+                        EDIT TYPE
+                      </v-btn>
+                    </v-flex>
+                  </v-layout>
+                </v-card>
               </span>
             </v-card>
-            <v-card
-              v-else-if="genSorts.includes(sortBy)"
-              class="mx-0 my-0 px-0 py-0"
-            >
-              <v-layout>
-                <v-flex xs3 class="center" align="center">
-                  Gen {{ x.key }}
-                </v-flex>
-                <v-flex xs5>
-                  <v-progress-linear
-                    :color="genColors[parseInt(x.key) - 1]"
-                    height="20"
-                    :value="x.avg * 10"
-                  />
-                </v-flex>
-                <v-flex xs2 class="center" align="center">
-                  {{ x.avg }}
-                </v-flex>
-                <v-flex xs2 class="text-xs-center">
-                  <v-btn
-                    color="red darken-2"
-                    class="white--text"
-                    round
-                    @click="changeSort('ratings', { gen: x.key })"
-                  >
-                    EDIT GEN
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-            </v-card>
-            <v-card
-              v-else-if="typeSorts.includes(sortBy)"
-              class="mx-0 my-0 px-0 py-0"
-            >
-              <v-layout>
-                <v-flex xs3 class="center" align="center">
-                  {{ x.key }}
-                </v-flex>
-                <v-flex xs5>
-                  <v-progress-linear
-                    :color="typeColors[x.key]"
-                    height="20"
-                    :value="x.avg * 10"
-                  />
-                </v-flex>
-                <v-flex xs2 class="center" align="center">
-                  {{ x.avg }}
-                </v-flex>
-                <v-flex xs2 class="text-xs-center">
-                  <v-btn
-                    color="red darken-2"
-                    class="white--text"
-                    round
-                    @click="changeSort('ratings', { types: x.key })"
-                  >
-                    EDIT TYPE
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-            </v-card>
-          </span>
-        </v-card>
+          </v-flex>
+        </v-layout>
+      </v-flex>
+      <v-flex xs3 id="col1" class="mb-4 ml-2">
+        <v-btn
+          color="blue darken-2"
+          dark
+          @click="changeSort('gens', {}, 'Gens')"
+          >GENS</v-btn
+        >
+        <p class="display-1 my-2">Gen Rankings</p>
+        <div>
+          <v-btn
+            v-for="g in gs"
+            :key="g"
+            dark
+            @click="changeSort('ratings', { gen: g }, 'Gen ' + g + ' Pokemon')"
+            >GEN {{ g }}</v-btn
+          >
+        </div>
+        <div class="mt-4">
+          <p class="display-1 my-2">Evolution Rankings</p>
+          <v-btn
+            dark
+            @click="
+              changeSort('ratings', { form: 'first' }, 'First Stage Pokemon')
+            "
+            >FIRST STAGE POKEMON</v-btn
+          >
+          <v-btn
+            dark
+            @click="
+              changeSort('ratings', { form: 'middle' }, 'Middle Stage Pokemon')
+            "
+            >MIDDLE STAGE POKEMON</v-btn
+          >
+          <v-btn
+            dark
+            @click="
+              changeSort('ratings', { form: 'final' }, 'Fully Evolved Pokemon')
+            "
+            >FULLY EVOLVED POKEMON</v-btn
+          >
+          <v-btn
+            dark
+            @click="
+              changeSort(
+                'ratings',
+                { form: 'first', starter: true },
+                'First Stage Starters'
+              )
+            "
+            >FIRST STAGE STARTERS</v-btn
+          >
+          <v-btn
+            dark
+            @click="
+              changeSort(
+                'ratings',
+                { form: 'middle', starter: true },
+                'Middle Stage Starters'
+              )
+            "
+            >MIDDLE STAGE STARTERS</v-btn
+          >
+          <v-btn
+            dark
+            @click="
+              changeSort(
+                'ratings',
+                { form: 'final', starter: true },
+                'Fully Evolved Starters'
+              )
+            "
+            >FULLY EVOLVED STARTERS</v-btn
+          >
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
@@ -534,16 +621,25 @@ export default {
       let al = true;
       const keys = Object.keys(this.onlyShow);
       keys.forEach(key => {
-        if (key !== "types") {
-          if (mon[key] !== this.onlyShow[key]) {
-            al = false;
+        if (key in mon) {
+          if (key !== "types") {
+            if (mon[key] !== this.onlyShow[key]) {
+              al = false;
+            }
+          } else {
+            if (
+              mon[key][0] !== this.onlyShow[key] &&
+              mon[key][1] !== this.onlyShow[key]
+            ) {
+              al = false;
+            }
           }
         } else {
-          if (
-            mon[key][0] !== this.onlyShow[key] &&
-            mon[key][1] !== this.onlyShow[key]
-          ) {
-            al = false;
+          if (key === "form") {
+            let form = this.onlyShow[key];
+            if (this.findForm(mon) !== form) {
+              al = false;
+            }
           }
         }
       });
@@ -573,6 +669,14 @@ export default {
       this.regional_sets_with_starters = [];
       this.idToChange = "None";
       this.process();
+    },
+    findForm(mon) {
+      if (mon.stage === mon.stages) {
+        return "final";
+      } else if (mon.stages === "3" && mon.stage === "2") {
+        return "middle";
+      }
+      return "first";
     }
   },
   beforeRouteLeave(to, from, next) {
