@@ -4,58 +4,86 @@
     <v-layout justify-center>
       <v-flex xs3 id="col2" class="mb-4 mr-2">
         <div>
-          <v-btn
-            color="red darken-3"
-            dark
-            @click="changeSort('types', {}, 'Types')"
-            >TYPES</v-btn
-          >
-          <p class="display-1 my-2">Type Rankings</p>
-          <v-btn
-            v-for="t in ts"
-            :key="t"
-            dark
-            @click="changeSort('ratings', { types: t }, t + ' Type Pokemon')"
-            >{{ t }} TYPES</v-btn
-          >
+          <p class="display-1 my-2">Limit Traits</p>
+          <v-layout justify-center>
+            <v-btn
+              dark
+              :color="boolean_limits['all'] ? 'red darken-3' : ''"
+              class="font-weight-bold"
+              @click="toggle('boolean', 'all')"
+              >CLEAR TRAITS</v-btn
+            >
+          </v-layout>
+          <span v-for="b in Object.keys(boolean_limits)" :key="b">
+            <v-btn
+              v-if="b !== 'all'"
+              dark
+              :color="boolean_limits[b] ? 'red darken-3' : ''"
+              @click="toggle('boolean', b)"
+              >{{ boolean_to_upperplural(b) }}</v-btn
+            >
+          </span>
         </div>
-        <div>
+        <div class="my-4">
           <p class="display-1 my-2">Aggregated Rankings</p>
+          <v-layout justify-center>
+            <v-btn
+              dark
+              :color="this.sortBy == 'types' ? 'green darken-2' : ''"
+              @click="changeSort('types')"
+              >TYPES</v-btn
+            >
+            <v-btn
+              dark
+              :color="this.sortBy == 'gens' ? 'green darken-2' : ''"
+              @click="changeSort('gens')"
+              >GENS</v-btn
+            >
+          </v-layout>
           <v-btn
             dark
-            @click="changeSort('pseudo_lines', {}, 'Pseudo Legendary Lines')"
+            :color="this.sortBy == 'starter_lines' ? 'green darken-2' : ''"
+            @click="changeSort('starter_lines')"
+            >STARTER LINES</v-btn
+          >
+          <v-btn
+            dark
+            :color="this.sortBy == 'pseudo_lines' ? 'green darken-2' : ''"
+            @click="changeSort('pseudo_lines')"
             >PSEUDO LEGENDARY LINES</v-btn
           >
-          <v-btn dark @click="changeSort('starter_lines')">STARTER LINES</v-btn>
           <v-btn
             dark
-            @click="changeSort('gens_by_starters', {}, 'Gens By Starter Lines')"
+            :color="this.sortBy == 'gens_by_starters' ? 'green darken-2' : ''"
+            @click="changeSort('gens_by_starters')"
             >GENS BY STARTER LINES</v-btn
           >
           <v-btn
             dark
-            @click="changeSort('regional_birds', {}, 'Regional Bird Lines')"
+            :color="this.sortBy == 'regional_birds' ? 'green darken-2' : ''"
+            @click="changeSort('regional_birds')"
             >REGIONAL BIRD LINES</v-btn
           >
           <v-btn
             dark
-            @click="changeSort('regional_rodents', {}, 'Regional Rodent Lines')"
+            :color="this.sortBy == 'regional_rodents' ? 'green darken-2' : ''"
+            @click="changeSort('regional_rodents')"
             >REGIONAL RODENT LINES</v-btn
           >
           <v-btn
             dark
-            @click="changeSort('regional_bugs', {}, 'Regional Bug Lines')"
+            :color="this.sortBy == 'regional_bugs' ? 'green darken-2' : ''"
+            @click="changeSort('regional_bugs')"
             >REGIONAL BUG LINES</v-btn
           >
           <v-btn
             dark
-            @click="
-              changeSort(
-                'regional_sets_with_starters',
-                {},
-                'Regional Sets (Starters, Birds, Rodents and Bugs)'
-              )
+            :color="
+              this.sortBy == 'regional_sets_with_starters'
+                ? 'green darken-2'
+                : ''
             "
+            @click="changeSort('regional_sets_with_starters')"
             >REGIONAL SETS</v-btn
           >
         </div>
@@ -64,20 +92,14 @@
         <p class="headline mb-4">
           Use the buttons to see all sorts of different stats!
         </p>
-        <v-layout justify-center mb-2>
-          <v-btn
-            color="amber"
-            class="font-weight-bold"
-            @click="changeSort('ratings')"
-            >ALL POKEMON
-          </v-btn>
-        </v-layout>
-        <p class="display-3 mt-2">{{ title }}</p>
-        <v-layout justify-center>
+        <v-btn color="amber" class="font-weight-bold" @click="reset_limits()"
+          >SHOW ALL POKEMON</v-btn
+        >
+        <v-layout justify-center mt-4>
           <v-flex xs12>
             <v-card color="grey darken-3">
-              <span v-if="sortedArray.length === 0">
-                <v-card-text class="title text-xs-left"
+              <span v-if="!any_allowed">
+                <v-card-text class="headline text-xs-center"
                   >No results.</v-card-text
                 >
               </span>
@@ -88,9 +110,9 @@
               >
                 <v-card v-if="sortBy === 'ratings'" class="mx-0 my-1 px-0 py-0">
                   <v-layout v-if="allowed(x.data)">
-                    <v-flex xs3 class="center" align="center">
-                      {{ x.data.name }}
-                    </v-flex>
+                    <v-flex xs3 class="center" align="center">{{
+                      x.data.name
+                    }}</v-flex>
                     <v-flex v-if="idToChange != x.id" xs6>
                       <v-progress-linear
                         height="20"
@@ -103,9 +125,8 @@
                       xs1
                       class="center"
                       align="center"
+                      >{{ x.data.rating }}</v-flex
                     >
-                      {{ x.data.rating }}
-                    </v-flex>
                     <v-flex
                       v-if="idToChange != x.id"
                       xs2
@@ -116,9 +137,8 @@
                         class="white--text"
                         round
                         @click="setIDToChange(x.id)"
+                        >EDIT</v-btn
                       >
-                        CHANGE
-                      </v-btn>
                     </v-flex>
                     <v-flex xs9 v-if="idToChange == x.id">
                       <buttons
@@ -135,9 +155,9 @@
                 >
                   <span v-for="mon in pokemon" :key="mon.id">
                     <v-layout v-if="mon.id === x.key">
-                      <v-flex xs3 class="center" align="center">
-                        {{ mon.data.name }}
-                      </v-flex>
+                      <v-flex xs3 class="center" align="center">{{
+                        mon.data.name
+                      }}</v-flex>
                       <v-flex xs5>
                         <v-progress-linear
                           :color="typeColors[mon.data.types[0]]"
@@ -145,24 +165,21 @@
                           :value="x.avg * 10"
                         />
                       </v-flex>
-                      <v-flex xs2 class="center" align="center">
-                        {{ x.avg }}
-                      </v-flex>
+                      <v-flex xs2 class="center" align="center">{{
+                        x.avg
+                      }}</v-flex>
                       <v-flex xs2 class="text-xs-center">
                         <v-btn
                           color="grey darken-3"
                           class="white--text"
                           round
                           @click="
-                            changeSort(
-                              'ratings',
-                              { line: x.key },
-                              mon.data.name + ' Line'
-                            )
+                            changeSort(mon.data.name + ' Line', 'ratings', [
+                              'line=' + x.key
+                            ])
                           "
+                          >EDIT LINE</v-btn
                         >
-                          EDIT LINE
-                        </v-btn>
                       </v-flex>
                     </v-layout>
                   </span>
@@ -172,9 +189,9 @@
                   class="mx-0 my-1 px-0 py-0"
                 >
                   <v-layout>
-                    <v-flex xs3 class="center" align="center">
-                      Gen {{ x.key }}
-                    </v-flex>
+                    <v-flex xs3 class="center" align="center"
+                      >Gen {{ x.key }}</v-flex
+                    >
                     <v-flex xs5>
                       <v-progress-linear
                         :color="genColors[parseInt(x.key) - 1]"
@@ -182,24 +199,21 @@
                         :value="x.avg * 10"
                       />
                     </v-flex>
-                    <v-flex xs2 class="center" align="center">
-                      {{ x.avg }}
-                    </v-flex>
+                    <v-flex xs2 class="center" align="center">{{
+                      x.avg
+                    }}</v-flex>
                     <v-flex xs2 class="text-xs-center">
                       <v-btn
                         color="grey darken-3"
                         class="white--text"
                         round
                         @click="
-                          changeSort(
-                            'ratings',
-                            { gen: x.key },
-                            'Gen ' + x.key + ' Pokemon'
-                          )
+                          changeSort('Gen ' + x.key + ' Pokemon', 'ratings', [
+                            'gen=' + x.key
+                          ])
                         "
+                        >EDIT GEN</v-btn
                       >
-                        EDIT GEN
-                      </v-btn>
                     </v-flex>
                   </v-layout>
                 </v-card>
@@ -208,9 +222,9 @@
                   class="mx-0 my-1 px-0 py-0"
                 >
                   <v-layout>
-                    <v-flex xs3 class="center" align="center">
-                      {{ x.key }}
-                    </v-flex>
+                    <v-flex xs3 class="center" align="center">{{
+                      x.key
+                    }}</v-flex>
                     <v-flex xs5>
                       <v-progress-linear
                         :color="typeColors[x.key]"
@@ -218,24 +232,21 @@
                         :value="x.avg * 10"
                       />
                     </v-flex>
-                    <v-flex xs2 class="center" align="center">
-                      {{ x.avg }}
-                    </v-flex>
+                    <v-flex xs2 class="center" align="center">{{
+                      x.avg
+                    }}</v-flex>
                     <v-flex xs2 class="text-xs-center">
                       <v-btn
                         color="grey darken-3"
                         class="white--text"
                         round
                         @click="
-                          changeSort(
-                            'ratings',
-                            { types: x.key },
-                            x.key + ' Type Pokemon'
-                          )
+                          changeSort(x.key + ' Type Pokemon', 'ratings', [
+                            'types=' + x.key
+                          ])
                         "
+                        >EDIT TYPE</v-btn
                       >
-                        EDIT TYPE
-                      </v-btn>
                     </v-flex>
                   </v-layout>
                 </v-card>
@@ -245,78 +256,65 @@
         </v-layout>
       </v-flex>
       <v-flex xs3 id="col1" class="mb-4 ml-2">
-        <v-btn
-          color="blue darken-2"
-          dark
-          @click="changeSort('gens', {}, 'Gens')"
-          >GENS</v-btn
-        >
-        <p class="display-1 my-2">Gen Rankings</p>
         <div>
+          <p class="display-1 my-2">Limit Types</p>
           <v-btn
-            v-for="g in gs"
-            :key="g"
             dark
-            @click="changeSort('ratings', { gen: g }, 'Gen ' + g + ' Pokemon')"
-            >GEN {{ g }}</v-btn
+            :color="type_limits['all'] ? 'red darken-3' : ''"
+            class="font-weight-bold"
+            @click="toggle('type', 'all')"
+            >SHOW ALL TYPES</v-btn
           >
+          <br />
+          <span v-for="t in Object.keys(type_limits)" :key="t">
+            <v-btn
+              v-if="t !== 'all'"
+              dark
+              :color="type_limits[t] ? 'red darken-3' : ''"
+              @click="toggle('type', t)"
+              >{{ t }} TYPES</v-btn
+            >
+          </span>
+        </div>
+        <div class="my-4">
+          <p class="display-1 my-2">Limit Gens</p>
+          <v-btn
+            dark
+            :color="gen_limits['all'] ? 'red darken-3' : ''"
+            class="font-weight-bold"
+            @click="toggle('gen', 'all')"
+            >SHOW ALL GENS</v-btn
+          >
+          <br />
+          <span v-for="g in Object.keys(gen_limits)" :key="g">
+            <v-btn
+              v-if="g !== 'all'"
+              dark
+              :color="gen_limits[g] ? 'red darken-3' : ''"
+              @click="toggle('gen', g)"
+              >GEN {{ g }}</v-btn
+            >
+          </span>
         </div>
         <div class="mt-4">
-          <p class="display-1 my-2">Evolution Rankings</p>
+          <p class="display-1 my-2">Limit Stages</p>
           <v-btn
             dark
-            @click="
-              changeSort('ratings', { form: 'first' }, 'First Stage Pokemon')
-            "
-            >FIRST STAGE POKEMON</v-btn
+            :color="stage_limits['all'] ? 'red darken-3' : ''"
+            class="font-weight-bold"
+            @click="toggle('stage', 'all')"
+            >SHOW ALL STAGES</v-btn
           >
-          <v-btn
-            dark
-            @click="
-              changeSort('ratings', { form: 'middle' }, 'Middle Stage Pokemon')
-            "
-            >MIDDLE STAGE POKEMON</v-btn
-          >
-          <v-btn
-            dark
-            @click="
-              changeSort('ratings', { form: 'final' }, 'Fully Evolved Pokemon')
-            "
-            >FULLY EVOLVED POKEMON</v-btn
-          >
-          <v-btn
-            dark
-            @click="
-              changeSort(
-                'ratings',
-                { form: 'first', starter: true },
-                'First Stage Starters'
-              )
-            "
-            >FIRST STAGE STARTERS</v-btn
-          >
-          <v-btn
-            dark
-            @click="
-              changeSort(
-                'ratings',
-                { form: 'middle', starter: true },
-                'Middle Stage Starters'
-              )
-            "
-            >MIDDLE STAGE STARTERS</v-btn
-          >
-          <v-btn
-            dark
-            @click="
-              changeSort(
-                'ratings',
-                { form: 'final', starter: true },
-                'Fully Evolved Starters'
-              )
-            "
-            >FULLY EVOLVED STARTERS</v-btn
-          >
+          <br />
+          <span v-for="s in Object.keys(stage_limits)" :key="s">
+            <v-btn
+              v-if="s !== 'all'"
+              dark
+              :color="stage_limits[s] ? 'red darken-3' : ''"
+              @click="toggle('stage', s)"
+              >{{ s }}</v-btn
+            >
+          </span>
         </div>
       </v-flex>
     </v-layout>
@@ -325,6 +323,7 @@
 
 <script>
 /* eslint-disable */
+
 function takeAvg(array) {
   array.forEach(x => {
     if (x.count > 0) {
@@ -387,30 +386,60 @@ export default {
     return {
       pokemon: this.$route.params.pokemon,
       sortBy: "ratings",
-      onlyShow: {},
-      title: "All Pokemon",
       idToChange: "None",
-      gs: [1, 2, 3, 4, 5, 6, 7, 8],
-      ts: [
-        "Normal",
-        "Fire",
-        "Fighting",
-        "Water",
-        "Flying",
-        "Grass",
-        "Poison",
-        "Electric",
-        "Ground",
-        "Psychic",
-        "Rock",
-        "Ice",
-        "Bug",
-        "Dragon",
-        "Ghost",
-        "Dark",
-        "Steel",
-        "Fairy"
-      ],
+      gen_limits: {
+        1: false,
+        2: false,
+        3: false,
+        4: false,
+        5: false,
+        6: false,
+        7: false,
+        8: false,
+        all: true
+      },
+      type_limits: {
+        Normal: false,
+        Fire: false,
+        Fighting: false,
+        Water: false,
+        Flying: false,
+        Grass: false,
+        Poison: false,
+        Electric: false,
+        Ground: false,
+        Psychic: false,
+        Rock: false,
+        Ice: false,
+        Bug: false,
+        Dragon: false,
+        Ghost: false,
+        Dark: false,
+        Steel: false,
+        Fairy: false,
+        all: true
+      },
+      stage_limits: {
+        first: false,
+        middle: false,
+        final: false,
+        all: true
+      },
+      boolean_limits: {
+        alolan: false,
+        galarian: false,
+        starter: false,
+        legendary: false,
+        mythical: false,
+        pseudo: false,
+        baby: false,
+        regional_bird: false,
+        regional_rodent: false,
+        regional_bug: false,
+        fossil: false,
+        ultra: false,
+        all: true
+      },
       lineSorts: [
         "pseudo_lines",
         "starter_lines",
@@ -469,6 +498,15 @@ export default {
     },
     ratings() {
       return this.pokemon.concat().sort(ratingSort);
+    },
+    any_allowed() {
+      let any = false;
+      for (let a in this.sortedArray) {
+        if (this.allowed(this.sortedArray[a].data)) {
+          any = true;
+        }
+      }
+      return any;
     }
   },
   mounted() {
@@ -477,22 +515,27 @@ export default {
   methods: {
     process() {
       // initialize types
-      this.ts.forEach(t => {
-        this.types.push({
-          key: t,
-          count: 0,
-          score: 0,
-          avg: 0
-        });
+      Object.keys(this.type_limits).forEach(t => {
+        if (t !== "all") {
+          this.types.push({
+            key: t,
+            count: 0,
+            score: 0,
+            avg: 0
+          });
+        }
       });
       // initialize gens
-      this.gs.forEach(g => {
-        this.gens.push({
-          key: g,
-          count: 0,
-          score: 0,
-          avg: 0
-        });
+      Object.keys(this.gen_limits).forEach(g => {
+        if (g !== "all") {
+          g = parseInt(g);
+          this.gens.push({
+            key: g,
+            count: 0,
+            score: 0,
+            avg: 0
+          });
+        }
       });
       // for each pokemon
       this.pokemon.forEach(mon => {
@@ -611,39 +654,115 @@ export default {
         this.regional_sets_with_starters
       ).sort(avgSort);
     },
-    changeSort(s = "ratings", o = {}, t = " All Pokemon") {
+    changeSort(s = "ratings") {
+      if (s !== "ratings") {
+        this.reset_limits();
+      }
       this.sortBy = s;
-      this.onlyShow = o;
-      this.title = t;
       this.idToChange = "None";
     },
-    allowed(mon) {
-      let al = true;
-      const keys = Object.keys(this.onlyShow);
-      keys.forEach(key => {
-        if (key in mon) {
-          if (key !== "types") {
-            if (mon[key] !== this.onlyShow[key]) {
-              al = false;
-            }
-          } else {
-            if (
-              mon[key][0] !== this.onlyShow[key] &&
-              mon[key][1] !== this.onlyShow[key]
-            ) {
-              al = false;
-            }
-          }
-        } else {
-          if (key === "form") {
-            let form = this.onlyShow[key];
-            if (this.findForm(mon) !== form) {
-              al = false;
-            }
+    toggle(group, limit) {
+      this.changeSort("ratings");
+      /* eslint-disable no-eval */
+      group = eval("this." + group + "_limits");
+      if (limit == "all") {
+        for (let g in group) {
+          group[g] = false;
+        }
+        group[limit] = true;
+      } else {
+        group[limit] = !group[limit];
+        let all_off = true;
+        for (let g in group) {
+          if (group[g]) {
+            all_off = false;
+            break;
           }
         }
-      });
-      return al;
+        if (all_off) {
+          group["all"] = true;
+        } else {
+          group["all"] = false;
+        }
+      }
+    },
+    reset_limits() {
+      let gl = this.gen_limits;
+      let tl = this.type_limits;
+      let sl = this.stage_limits;
+      let bl = this.boolean_limits;
+      if (!gl["all"]) {
+        this.toggle("gen", "all");
+      }
+      if (!tl["all"]) {
+        this.toggle("type", "all");
+      }
+      if (!sl["all"]) {
+        this.toggle("stage", "all");
+      }
+      if (!bl["all"]) {
+        this.toggle("boolean", "all");
+      }
+      this.changeSort("ratings");
+    },
+    allowed(mon) {
+      let allow = true;
+      let gl = this.gen_limits;
+      let tl = this.type_limits;
+      let sl = this.stage_limits;
+      let bl = this.boolean_limits;
+      if (!bl["all"]) {
+        let good = false;
+        for (let l in bl) {
+          if (bl[l] && mon[l]) {
+            good = true;
+            break;
+          }
+        }
+        if (!good) {
+          allow = false;
+        }
+      }
+      if (allow && !gl["all"]) {
+        let gs = [];
+        for (let l in gl) {
+          if (gl[l]) {
+            gs.push(l);
+          }
+        }
+        if (!gs.includes(mon["gen"].toString())) {
+          allow = false;
+        }
+      }
+      if (allow && !tl["all"]) {
+        let ts = [];
+        for (let l in tl) {
+          if (tl[l]) {
+            ts.push(l);
+          }
+        }
+        let good = false;
+        for (let mt in mon["types"]) {
+          if (ts.includes(mon["types"][mt])) {
+            good = true;
+          }
+        }
+        if (!good) {
+          allow = false;
+        }
+      }
+      if (allow && !sl["all"]) {
+        let ss = [];
+        for (let l in sl) {
+          if (sl[l]) {
+            ss.push(l);
+          }
+        }
+        if (!ss.includes(this.findForm(mon))) {
+          allow = false;
+        }
+      }
+      return allow;
     },
     setIDToChange(i) {
       this.idToChange = i;
@@ -677,6 +796,23 @@ export default {
         return "middle";
       }
       return "first";
+    },
+    boolean_to_upperplural(b) {
+      let b2ups = {
+        alolan: "ALOLAN FORMS",
+        galarian: "GALARIAN FORMS",
+        starter: "STARTERS",
+        legendary: "LEGENDARIES",
+        mythical: "MYTHICALS",
+        pseudo: "PSEUDO-LEGENDARIES",
+        baby: "BABIES",
+        regional_bird: "REGIONAL BIRDS",
+        regional_rodent: "REGIONAL RODENTS",
+        regional_bug: "REGIONAL BUGS",
+        fossil: "FOSSILS",
+        ultra: "ULTRA BEASTS"
+      };
+      return b2ups[b];
     }
   },
   beforeRouteLeave(to, from, next) {
