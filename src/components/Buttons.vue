@@ -26,7 +26,6 @@ export default {
     colorsList() {
       let l = new Array(10).fill("grey darken-1");
       l[this.rating - 1] = this.color;
-      console.log(l);
       return l;
     }
   },
