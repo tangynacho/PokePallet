@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <PreventUnload :when="true" />
+    <prevent-unload :when="true" />
     <v-layout justify-center>
       <v-flex v-if="waited" xs4>
         <v-card color="white" v-animate-css="'fadeInDown'">
