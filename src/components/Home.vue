@@ -26,19 +26,23 @@
             Pokemon or other features are added!
           </li>
         </ul>
-        <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">
-          <p :class="medtext">Click the button when you're ready to begin.</p>
-          <p class="text-xs-center">
-            <v-btn
-              round
-              large
-              color="red darken-2"
-              :class="`${liltext} white--text font-weight-bold`"
-              @click="start()"
-              >LET'S GO!
-            </v-btn>
-          </p>
-        </v-card>
+        <v-layout justify-center mt-4 pt-3>
+          <v-flex xs12 md8>
+            <v-card class="mt-4 py-4" v-animate-css="'fadeInUp'">
+              <p :class="medtext">
+                Click the button when you're ready to begin.
+              </p>
+              <v-btn
+                round
+                large
+                color="red darken-2"
+                :class="`${btntext} white--text font-weight-bold`"
+                @click="start()"
+                >LET'S GO!
+              </v-btn>
+            </v-card>
+          </v-flex>
+        </v-layout>
       </v-flex>
     </v-layout>
   </v-container>
@@ -77,21 +81,44 @@ export default {
   computed: {
     // determine font size
     bigtext() {
-      return this.h < 720
+      return this.w < 700
+        ? "title"
+        : this.w < 1000
+        ? "headline"
+        : this.w < 1500
         ? "display-1"
-        : this.h > 1080
-        ? "display-3"
-        : "display-2";
+        : this.w < 2000
+        ? "display-2"
+        : "display-3";
     },
     medtext() {
-      return this.h < 720
+      return this.w < 700
+        ? "subtitle-1"
+        : this.w < 1000
+        ? "title"
+        : this.w < 1500
         ? "headline"
-        : this.h > 1080
-        ? "display-2"
-        : "display-1";
+        : this.w < 2000
+        ? "display-1"
+        : "display-2";
     },
     liltext() {
-      return this.h < 720 ? "title" : this.h > 1080 ? "display-1" : "headline";
+      return this.w < 700
+        ? "subtitle-2"
+        : this.w < 1000
+        ? "subtitle-1"
+        : this.w < 1500
+        ? "title"
+        : this.w < 2000
+        ? "headline"
+        : "display-1";
+    },
+    btntext() {
+      return this.w < 700
+        ? this.bigtext
+        : this.w < 2000
+        ? this.liltext
+        : "headline";
     }
   },
   methods: {
