@@ -1,8 +1,8 @@
 <template>
   <v-container fluid>
     <v-layout justify-center>
-      <v-flex xs12 xl6>
-        <p :class="bigtext">Welcome to PokePallet! (Alpha)</p>
+      <v-flex xs10 xl8>
+        <p :class="bigtext">Welcome to PokePallet! (Beta)</p>
         <ul :class="`${liltext} text-xs-left`">
           <li>
             You'll be presented with all {{ pokemon.length }} pokemon, one at a
@@ -22,17 +22,18 @@
           </li>
           <li>
             Don't forget to Save at the end! A completed PokePallet is useful
-            for sharing and comparing with friends!
+            for sharing and comparing with friends, or updating whenever new
+            Pokemon or other features are added!
           </li>
         </ul>
-        <v-card min-height="33%" class="mt-4 pt-3" v-animate-css="'fadeInUp'">
+        <v-card class="mt-4 pt-3" v-animate-css="'fadeInUp'">
           <p :class="medtext">Click the button when you're ready to begin.</p>
           <p class="text-xs-center">
             <v-btn
               round
               large
               color="red darken-2"
-              :class="`${liltext} white--text font-weight-bold bigger`"
+              :class="`${liltext} white--text font-weight-bold`"
               @click="start()"
               >LET'S GO!
             </v-btn>
@@ -108,8 +109,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.bigger {
-  min-height: 75px;
-}
-</style>
+<style scoped></style>

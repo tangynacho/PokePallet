@@ -146,8 +146,8 @@ export default {
 .inputfile {
   opacity: 0;
   overflow: hidden;
-  position: absolute;
   z-index: -1;
+  width: 0px;
 }
 
 .inputfile + label {
