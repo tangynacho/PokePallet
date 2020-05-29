@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <prevent-unload :when="true" />
-    <p class="display-3 font-weight-bold">Welcome to your PokePallet!</p>
+    <p class="display-3 font-weight-bold">Welcome to your PokéPallet!</p>
     <v-layout justify-center>
       <v-flex xs3 id="col2" class="mb-4 mr-2">
         <div>
@@ -926,7 +926,7 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     const answer = window.confirm(
-      "If leave this page and you have not saved your PokePallet, you cannot get it back. Are you sure you want to leave?"
+      "If leave this page and you have not saved your PokéPallet, you cannot get it back. Are you sure you want to leave?"
     );
     if (answer) {
       next();

@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout justify-center>
       <v-flex xs10 xl8>
-        <p :class="bigtext">Welcome to PokePallet! (Beta)</p>
+        <p :class="bigtext">Welcome to PokéPallet! (Beta)</p>
         <ul :class="`${liltext} text-xs-left`">
           <li>
             You'll be presented with all {{ pokemon.length }} pokemon, one at a
@@ -21,7 +21,7 @@
             your ratings there.
           </li>
           <li>
-            Don't forget to Save at the end! A completed PokePallet is useful
+            Don't forget to Save at the end! A completed PokéPallet is useful
             for sharing and comparing with friends, or updating whenever new
             Pokemon or other features are added!
           </li>
