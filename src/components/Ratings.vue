@@ -2,12 +2,12 @@
   <v-container fluid>
     <prevent-unload :when="true" />
     <v-layout justify-center>
-      <v-flex v-if="waited" xs4>
+      <v-flex v-if="waited" xs12 md8 lg4>
         <v-card color="white" v-animate-css="'fadeInDown'">
           <v-img
             :src="current.img"
             class="center mt-2 mb-4"
-            :width="w / 3.5"
+            :width="small ? w / 2 : w / 3.5"
             :height="h / 3.5"
             contain
           />
@@ -16,39 +16,104 @@
           #{{ currentID.replace(/\D/g, "") }} {{ current.name }}
         </p>
         <div v-animate-css="'fadeInUp'">
-          <v-layout justify-center>
-            <v-btn icon color="red" class="white--text" @click="next(1)"
+          <v-layout justify-center my-4>
+            <v-btn large icon color="red" class="white--text" @click="next(1)"
               >1</v-btn
             >
-            <v-btn icon color="pink" class="white--text" @click="next(2)"
+            <v-btn large icon color="pink" class="white--text" @click="next(2)"
               >2</v-btn
             >
-            <v-btn icon color="purple" class="white--text" @click="next(3)"
+            <v-btn
+              large
+              icon
+              color="purple"
+              class="white--text"
+              @click="next(3)"
               >3</v-btn
             >
-            <v-btn icon color="deep-purple" class="white--text" @click="next(4)"
+            <v-btn
+              large
+              icon
+              color="deep-purple"
+              class="white--text"
+              @click="next(4)"
               >4</v-btn
             >
-            <v-btn icon color="indigo" class="white--text" @click="next(5)"
+            <v-btn
+              large
+              icon
+              color="indigo"
+              class="white--text"
+              @click="next(5)"
               >5</v-btn
             >
-            <v-btn icon color="blue" class="white--text" @click="next(6)"
+            <span v-if="!small">
+              <v-btn
+                large
+                icon
+                color="blue"
+                class="white--text"
+                @click="next(6)"
+                >6</v-btn
+              >
+              <v-btn
+                large
+                icon
+                color="cyan"
+                class="white--text"
+                @click="next(7)"
+                >7</v-btn
+              >
+              <v-btn
+                large
+                icon
+                color="teal"
+                class="white--text"
+                @click="next(8)"
+                >8</v-btn
+              >
+              <v-btn
+                large
+                icon
+                color="green darken-2"
+                class="white--text"
+                @click="next(9)"
+                >9</v-btn
+              >
+              <v-btn
+                large
+                icon
+                color="green"
+                class="white--text"
+                @click="next(10)"
+                >10</v-btn
+              >
+            </span>
+          </v-layout>
+          <v-layout v-if="small" justify-center my-4>
+            <v-btn large icon color="blue" class="white--text" @click="next(6)"
               >6</v-btn
             >
-            <v-btn icon color="cyan" class="white--text" @click="next(7)"
+            <v-btn large icon color="cyan" class="white--text" @click="next(7)"
               >7</v-btn
             >
-            <v-btn icon color="teal" class="white--text" @click="next(8)"
+            <v-btn large icon color="teal" class="white--text" @click="next(8)"
               >8</v-btn
             >
             <v-btn
+              large
               icon
               color="green darken-2"
               class="white--text"
               @click="next(9)"
               >9</v-btn
             >
-            <v-btn icon color="green" class="white--text" @click="next(10)"
+            <v-btn
+              large
+              icon
+              color="green"
+              class="white--text"
+              @click="next(10)"
               >10</v-btn
             >
           </v-layout>
@@ -108,6 +173,9 @@ export default {
     },
     liltext() {
       return this.h < 720 ? "title" : this.h > 1080 ? "display-1" : "headline";
+    },
+    small() {
+      return this.w < 700;
     }
   },
   methods: {
@@ -176,9 +244,5 @@ export default {
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-.type-img {
-  max-width: 150px;
-  height: auto;
 }
 </style>
