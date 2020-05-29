@@ -1,5 +1,5 @@
-<template class="container">
-  <div id="app">
+<template>
+  <div id="app" class="fill-screen">
     <topbar />
     <router-view />
   </div>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-.container {
+.fill-screen {
   min-height: 100vh;
 }
 #app {
