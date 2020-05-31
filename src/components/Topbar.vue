@@ -100,10 +100,9 @@ export default {
       });
       this.pokemon = newPokemon;
       this.$router.push({
-        name: "Loader",
+        name: "Ratings",
         params: {
-          pokemon: newPokemon,
-          destination: "Ratings"
+          pokemon: newPokemon
         }
       });
     }

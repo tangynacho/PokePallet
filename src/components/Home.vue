@@ -29,17 +29,14 @@
         <v-layout justify-center mt-4 pt-3>
           <v-flex xs12 md8>
             <v-card class="mt-4 py-4" v-animate-css="'fadeInUp'">
-              <p :class="medtext">
-                Click the button when you're ready to begin.
-              </p>
+              <p :class="medtext">Click the button when you're ready to begin.</p>
               <v-btn
                 round
                 large
                 color="red darken-2"
                 :class="`${btntext} white--text font-weight-bold`"
                 @click="start()"
-                >LET'S GO!
-              </v-btn>
+              >LET'S GO!</v-btn>
             </v-card>
           </v-flex>
         </v-layout>
@@ -54,11 +51,11 @@
 // loads the json file
 let pokemonJSON = require("@/data/pokemon.json");
 // turns the Object into an array of Objects
-let pokemon = Object.keys(pokemonJSON).map(function(key) {
+let pokemon = Object.keys(pokemonJSON).map(function (key) {
   return { id: key, data: pokemonJSON[key] };
 });
 // sorts the array by id number
-pokemon.sort(function(x, y) {
+pokemon.sort(function (x, y) {
   if (x.id < y.id) {
     return -1;
   }
@@ -70,7 +67,7 @@ pokemon.sort(function(x, y) {
 
 export default {
   name: "Home",
-  data() {
+  data () {
     return {
       // window info
       h: window.innerHeight,
@@ -80,55 +77,54 @@ export default {
   },
   computed: {
     // determine font size
-    bigtext() {
+    bigtext () {
       return this.w < 700
         ? "title"
         : this.w < 1000
-        ? "headline"
-        : this.w < 1500
-        ? "display-1"
-        : this.w < 2000
-        ? "display-2"
-        : "display-3";
+          ? "headline"
+          : this.w < 1500
+            ? "display-1"
+            : this.w < 2000
+              ? "display-2"
+              : "display-3";
     },
-    medtext() {
+    medtext () {
       return this.w < 700
         ? "subtitle-1"
         : this.w < 1000
-        ? "title"
-        : this.w < 1500
-        ? "headline"
-        : this.w < 2000
-        ? "display-1"
-        : "display-2";
+          ? "title"
+          : this.w < 1500
+            ? "headline"
+            : this.w < 2000
+              ? "display-1"
+              : "display-2";
     },
-    liltext() {
+    liltext () {
       return this.w < 700
         ? "subtitle-2"
         : this.w < 1000
-        ? "subtitle-1"
-        : this.w < 1500
-        ? "title"
-        : this.w < 2000
-        ? "headline"
-        : "display-1";
+          ? "subtitle-1"
+          : this.w < 1500
+            ? "title"
+            : this.w < 2000
+              ? "headline"
+              : "display-1";
     },
-    btntext() {
+    btntext () {
       return this.w < 700
         ? this.bigtext
         : this.w < 2000
-        ? this.liltext
-        : "headline";
+          ? this.liltext
+          : "headline";
     }
   },
   methods: {
     // set the mode and begin rating
-    start() {
+    start () {
       this.$router.push({
-        name: "Loader",
+        name: "Ratings",
         params: {
           pokemon: pokemon,
-          destination: "Ratings"
         }
       });
     }

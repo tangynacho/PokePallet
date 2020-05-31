@@ -1,7 +1,19 @@
 <template>
   <v-container fluid>
     <prevent-unload :when="true" />
-    <p class="display-3 font-weight-bold">Welcome to your PokéPallet!</p>
+    <p v-if="completed" class="display-3 font-weight-bold">
+      Welcome to your PokéPallet!
+    </p>
+    <p v-else class="headline font-weight-bold">
+      You are viewing an incomplete PokéPallet.
+    </p>
+    <v-btn
+      v-if="!completed"
+      color="amber"
+      class="black--text font-weight-bold mb-4"
+      @click="back_to_ratings()"
+      >BACK TO RATINGS</v-btn
+    >
     <v-layout justify-center>
       <v-flex xs3 id="col2" class="mb-4 mr-2">
         <div>
@@ -97,9 +109,9 @@
               >
                 <v-card v-if="sortBy === 'ratings'" class="mx-0 my-1 px-0 py-0">
                   <v-layout v-if="allowed(x.data)">
-                    <v-flex xs3 class="center" align="center">{{
-                      x.data.name
-                    }}</v-flex>
+                    <v-flex xs3 class="center" align="center">
+                      {{ x.data.name }}
+                    </v-flex>
                     <v-flex v-if="idToChange != x.id" xs6>
                       <v-progress-linear
                         striped
@@ -143,9 +155,9 @@
                 >
                   <span v-for="mon in pokemon" :key="mon.id">
                     <v-layout v-if="mon.id === x.key">
-                      <v-flex xs3 class="center" align="center">{{
-                        mon.data.name
-                      }}</v-flex>
+                      <v-flex xs3 class="center" align="center">
+                        {{ mon.data.name }}
+                      </v-flex>
                       <v-flex xs5>
                         <v-progress-linear
                           :color="typeColors[mon.data.types[0]]"
@@ -153,9 +165,9 @@
                           :value="x.avg * 10"
                         />
                       </v-flex>
-                      <v-flex xs2 class="center" align="center">{{
-                        x.avg
-                      }}</v-flex>
+                      <v-flex xs2 class="center" align="center">
+                        {{ x.avg }}
+                      </v-flex>
                       <v-flex xs2 class="text-xs-center">
                         <v-btn
                           color="grey darken-3"
@@ -183,9 +195,9 @@
                         :value="x.avg * 10"
                       />
                     </v-flex>
-                    <v-flex xs2 class="center" align="center">{{
-                      x.avg
-                    }}</v-flex>
+                    <v-flex xs2 class="center" align="center">
+                      {{ x.avg }}
+                    </v-flex>
                     <v-flex xs2 class="text-xs-center">
                       <v-btn
                         color="grey darken-3"
@@ -202,9 +214,9 @@
                   class="mx-0 my-1 px-0 py-0"
                 >
                   <v-layout>
-                    <v-flex xs3 class="center" align="center">{{
-                      x.key
-                    }}</v-flex>
+                    <v-flex xs3 class="center" align="center">
+                      {{ x.key }}
+                    </v-flex>
                     <v-flex xs5>
                       <v-progress-linear
                         :color="typeColors[x.key]"
@@ -212,9 +224,9 @@
                         :value="x.avg * 10"
                       />
                     </v-flex>
-                    <v-flex xs2 class="center" align="center">{{
-                      x.avg
-                    }}</v-flex>
+                    <v-flex xs2 class="center" align="center">
+                      {{ x.avg }}
+                    </v-flex>
                     <v-flex xs2 class="text-xs-center">
                       <v-btn
                         color="grey darken-3"
@@ -231,12 +243,10 @@
                   class="mx-0 my-1 px-0 py-0"
                 >
                   <v-layout>
-                    <v-flex xs3 class="center" align="center"
-                      >{{
-                        x.key.charAt(0).toUpperCase() + x.key.slice(1)
-                      }}
-                      Stage</v-flex
-                    >
+                    <v-flex xs3 class="center" align="center">
+                      {{ x.key.charAt(0).toUpperCase() + x.key.slice(1) }}
+                      Stage
+                    </v-flex>
                     <v-flex xs5>
                       <v-progress-linear
                         :color="stageColors[x.key]"
@@ -244,9 +254,9 @@
                         :value="x.avg * 10"
                       />
                     </v-flex>
-                    <v-flex xs2 class="center" align="center">{{
-                      x.avg
-                    }}</v-flex>
+                    <v-flex xs2 class="center" align="center">
+                      {{ x.avg }}
+                    </v-flex>
                     <v-flex xs2 class="text-xs-center">
                       <v-btn
                         color="grey darken-3"
@@ -428,6 +438,7 @@ export default {
   data() {
     return {
       pokemon: this.$route.params.pokemon,
+      completed: this.$route.params.completed,
       sortBy: "ratings",
       idToChange: "None",
       line_limit: "",
@@ -562,6 +573,11 @@ export default {
         return true;
       }
       return any;
+    }
+  },
+  watch: {
+    sortedArray() {
+      this.ldng = true;
     }
   },
   mounted() {
@@ -922,16 +938,28 @@ export default {
         ultra: "ULTRA BEASTS"
       };
       return b2ups[b];
+    },
+    back_to_ratings() {
+      this.$router.push({
+        name: "Ratings",
+        params: {
+          pokemon: this.pokemon
+        }
+      });
     }
   },
   beforeRouteLeave(to, from, next) {
-    const answer = window.confirm(
-      "If leave this page and you have not saved your PokéPallet, you cannot get it back. Are you sure you want to leave?"
-    );
-    if (answer) {
+    if (!this.completed && to.name == "Ratings") {
       next();
     } else {
-      next(false);
+      const answer = window.confirm(
+        "If leave this page and you have not saved your PokéPallet, you cannot get it back. Are you sure you want to leave?"
+      );
+      if (answer) {
+        next();
+      } else {
+        next(false);
+      }
     }
   }
 };

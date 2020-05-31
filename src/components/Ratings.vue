@@ -117,6 +117,14 @@
               >10</v-btn
             >
           </v-layout>
+          <v-layout justify-center my-4>
+            <v-btn
+              color="amber"
+              class="black--text font-weight-bold"
+              @click="preview()"
+              >PREVIEW YOUR POKEPALLET</v-btn
+            >
+          </v-layout>
         </div>
       </v-flex>
     </v-layout>
@@ -206,10 +214,19 @@ export default {
     finish() {
       this.finished = true;
       this.$router.push({
-        name: "Loader",
+        name: "Pallet",
         params: {
           pokemon: this.pokemon,
-          destination: "Pallet"
+          completed: true
+        }
+      });
+    },
+    preview() {
+      this.$router.push({
+        name: "Pallet",
+        params: {
+          pokemon: this.pokemon,
+          completed: false
         }
       });
     }
@@ -223,7 +240,7 @@ export default {
     this.findNext();
   },
   beforeRouteLeave(to, from, next) {
-    if (this.finished) {
+    if (to.name == "Pallet") {
       next();
     } else {
       const answer = window.confirm(

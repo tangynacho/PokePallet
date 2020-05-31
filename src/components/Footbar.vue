@@ -1,7 +1,5 @@
 <template>
-  <p class="caption mr-4">
-    Pokémon is © Nintendo
-  </p>
+  <p class="caption mr-4 grey--text">Pokémon is © Nintendo</p>
 </template>
 
 <script>
