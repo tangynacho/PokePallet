@@ -4,4 +4,4 @@
 > Author - Theodore Proulx
 > 2019
 
-Live beta at: pokepallet.com
+[Live Beta](http://pokepallet.com)
