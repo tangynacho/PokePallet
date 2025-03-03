@@ -1260,12 +1260,3 @@ export default {
   margin-right: auto;
 }
 </style>
-
-<v-card v-if="hover == x.data.img" color="white" class="above">
-                  <v-img
-                    :src="hover"
-                    :width="small ? w / 2 : w / 4"
-                    :height="h / 4"
-                    contain
-                  />
-                </v-card>
